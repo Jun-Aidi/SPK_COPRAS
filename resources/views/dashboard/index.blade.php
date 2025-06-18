@@ -9,7 +9,7 @@
         </div>
         <div id="welcomeAlert" class="flex justify-between items-center border-l-4 border-green-500 bg-green-200 py-4 px-6 rounded-sm">
             <p class="font-semibold opacity-50">
-                Selamat Datang <span class="font-bold">{{ auth()->user()->nama_lengkap }}!</span>.
+                Selamat Datang <span class="font-bold">{{ auth()->user()->username }}!</span>.
                 Silakan gunakan menu di sidebar untuk mengakses fitur yang tersedia.
             </p>
             <i class="fa-solid fa-xmark opacity-50 cursor-pointer" onclick="document.getElementById('welcomeAlert').remove()"></i>

@@ -178,6 +178,11 @@ class SanitizeInput
                 // For email fields, be more lenient but still secure
                 return filter_var(trim($value), FILTER_SANITIZE_EMAIL);
 
+            case 'login':
+                // For login field (email or username), allow alphanumeric, underscore, dot, and @ symbol
+                $value = htmlspecialchars(trim($value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return preg_replace('/[^a-zA-Z0-9_@\.\-]/', '', $value);
+
             case 'username':
                 // For username, remove special characters but allow alphanumeric and underscore
                 return preg_replace('/[^a-zA-Z0-9_]/', '', $value);
@@ -192,6 +197,39 @@ class SanitizeInput
             case 'telephone':
                 // For phone numbers, allow only numbers, spaces, dashes, and parentheses
                 return preg_replace('/[^0-9\s\-\(\)\+]/', '', $value);
+
+            case 'kode':
+            case 'kode_alternatif':
+                // For code fields, allow alphanumeric and common separators
+                $value = htmlspecialchars(trim($value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return preg_replace('/[^a-zA-Z0-9\-_]/', '', $value);
+
+            case 'nama':
+            case 'nama_subkriteria':
+            case 'nama_alternatif':
+                // For name fields, allow letters, numbers, spaces, and common punctuation
+                $value = htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                return preg_replace('/[^a-zA-Z0-9\s\.\-\(\)]/', '', $value);
+
+            case 'bobot':
+            case 'nilai':
+                // For numeric fields, allow only numbers and decimal point
+                return preg_replace('/[^0-9\.]/', '', $value);
+
+            case 'jenis':
+                // For type field, allow only specific values
+                $allowedValues = ['Benefit', 'Cost'];
+                return in_array($value, $allowedValues) ? $value : '';
+
+            case 'role':
+                // For role field, allow only specific values
+                $allowedRoles = ['admin', 'user'];
+                return in_array($value, $allowedRoles) ? $value : '';
+
+            case 'status':
+                // For status field, allow only specific values
+                $allowedStatus = ['Active', 'Inactive'];
+                return in_array($value, $allowedStatus) ? $value : '';
 
             default:
                 // Default sanitization for other fields

@@ -164,7 +164,7 @@
                 <div class="relative inline-block">
                     <div class="flex items-center space-x-2 cursor-pointer" id="profileDropdown">
                         <div class="flex items-center space-x-2">
-                            <h1 class="text-gray-500 font-bold text-base">{{ auth()->user()->nama_lengkap }}</h1>
+                            <h1 class="text-gray-500 font-bold text-base">{{ auth()->user()->username }}</h1>
                         </div>
                         <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                             <i class="fas fa-user text-white text-base"></i>
