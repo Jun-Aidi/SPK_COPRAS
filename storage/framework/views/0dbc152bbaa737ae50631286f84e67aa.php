@@ -1,20 +1,19 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div>
         <h1 class="page-title"><i class="fas fa-calculator mr-2" style="color:#21E6C1;"></i>Data Perhitungan</h1>
         <p class="page-subtitle">Langkah-langkah perhitungan metode COPRAS</p>
     </div>
 
-    @if($kriterias->isEmpty() || $alternatifs->isEmpty())
+    <?php if($kriterias->isEmpty() || $alternatifs->isEmpty()): ?>
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
         <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Kriteria atau Alternatif masih kosong. Silahkan tambahkan data terlebih dahulu.</p>
     </div>
-    @else
+    <?php else: ?>
     <div class="space-y-5">
 
-        {{-- Matriks Keputusan --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -26,27 +25,27 @@
                         <tr>
                             <th>No</th>
                             <th style="text-align:left;">Alternatif</th>
-                            @foreach($kriterias as $k)<th>{{ $k->kode }}</th>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><th><?php echo e($k->kode); ?></th><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($matriksKeputusan['matriks'] as $i => $alt)
+                        <?php $__currentLoopData = $matriksKeputusan['matriks']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $alt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $alt['nama_alternatif'] }}</td>
-                            @foreach($kriterias as $k)<td>{{ $alt['nilai'][$k->id_kriteria] }}</td>@endforeach
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($alt['nama_alternatif']); ?></td>
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td><?php echo e($alt['nilai'][$k->id_kriteria]); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <tr style="background:rgba(33,230,193,0.06);">
                             <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            @foreach($kriterias as $k)<td class="font-bold" style="color:#21E6C1;">{{ $matriksKeputusan['total'][$k->id_kriteria] }}</td>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td class="font-bold" style="color:#21E6C1;"><?php echo e($matriksKeputusan['total'][$k->id_kriteria]); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Normalisasi Matriks --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -58,23 +57,23 @@
                         <tr>
                             <th>No</th>
                             <th style="text-align:left;">Alternatif</th>
-                            @foreach($kriterias as $k)<th>{{ $k->kode }}</th>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><th><?php echo e($k->kode); ?></th><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($normalisasiMatriks as $i => $alt)
+                        <?php $__currentLoopData = $normalisasiMatriks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $alt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $alt['nama_alternatif'] }}</td>
-                            @foreach($kriterias as $k)<td>{{ $alt['nilai'][$k->id_kriteria] }}</td>@endforeach
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($alt['nama_alternatif']); ?></td>
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td><?php echo e($alt['nilai'][$k->id_kriteria]); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Bobot Kriteria --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -84,19 +83,19 @@
                 <table class="tbl text-center">
                     <thead>
                         <tr>
-                            @foreach($kriterias as $k)<th>{{ $k->kode }}</th>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><th><?php echo e($k->kode); ?></th><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            @foreach($kriterias as $k)<td>{{ $bobotKriteria[$k->id_kriteria] }}</td>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td><?php echo e($bobotKriteria[$k->id_kriteria]); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Matriks Ternormalisasi Terbobot --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -108,27 +107,27 @@
                         <tr>
                             <th>No</th>
                             <th style="text-align:left;">Alternatif</th>
-                            @foreach($kriterias as $k)<th>{{ $k->kode }}</th>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><th><?php echo e($k->kode); ?></th><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($matriksTernormalisasiTerbobot as $i => $alt)
+                        <?php $__currentLoopData = $matriksTernormalisasiTerbobot; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $alt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $alt['nama_alternatif'] }}</td>
-                            @foreach($kriterias as $k)<td>{{ $alt['nilai'][$k->id_kriteria] }}</td>@endforeach
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($alt['nama_alternatif']); ?></td>
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td><?php echo e($alt['nilai'][$k->id_kriteria]); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <tr style="background:rgba(33,230,193,0.06);">
                             <td colspan="2" class="font-bold" style="color:#21E6C1;">Jenis</td>
-                            @foreach($kriterias as $k)<td class="font-bold" style="color:{{ strtolower($k->jenis)=='benefit'?'#21E6C1':'#fca5a5' }};">{{ strtolower($k->jenis) == 'benefit' ? 'MAX' : 'MIN' }}</td>@endforeach
+                            <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><td class="font-bold" style="color:<?php echo e(strtolower($k->jenis)=='benefit'?'#21E6C1':'#fca5a5'); ?>;"><?php echo e(strtolower($k->jenis) == 'benefit' ? 'MAX' : 'MIN'); ?></td><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Nilai S+ --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -138,19 +137,19 @@
                 <table class="tbl text-center">
                     <thead><tr><th>No</th><th style="text-align:left;">Alternatif</th><th>Nilai S+</th></tr></thead>
                     <tbody>
-                        @foreach($sPlus as $i => $row)
+                        <?php $__currentLoopData = $sPlus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td>{{ $row['nilai'] }}</td>
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($row['nama_alternatif']); ?></td>
+                            <td><?php echo e($row['nilai']); ?></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Nilai S- --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -160,23 +159,23 @@
                 <table class="tbl text-center">
                     <thead><tr><th>No</th><th style="text-align:left;">Alternatif</th><th>Nilai S-</th></tr></thead>
                     <tbody>
-                        @foreach($sMinusData['sMinus'] as $i => $row)
+                        <?php $__currentLoopData = $sMinusData['sMinus']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td>{{ $row['nilai'] }}</td>
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($row['nama_alternatif']); ?></td>
+                            <td><?php echo e($row['nilai']); ?></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <tr style="background:rgba(33,230,193,0.06);">
                             <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $sMinusData['total'] }}</td>
+                            <td class="font-bold" style="color:#21E6C1;"><?php echo e($sMinusData['total']); ?></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        {{-- Bobot Relatif --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -186,17 +185,17 @@
                 <table class="tbl text-center">
                     <thead><tr><th>No</th><th style="text-align:left;">Alternatif</th><th>1/S-</th><th>S- × Total 1/S-</th></tr></thead>
                     <tbody>
-                        @foreach($relativeWeightData['weights'] as $i => $row)
+                        <?php $__currentLoopData = $relativeWeightData['weights']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td>{{ $row['inverse'] }}</td>
-                            <td>@php echo round($sMinusData['sMinus'][$i]['nilai'] * $relativeWeightData['sumInverse'], 4); @endphp</td>
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($row['nama_alternatif']); ?></td>
+                            <td><?php echo e($row['inverse']); ?></td>
+                            <td><?php echo round($sMinusData['sMinus'][$i]['nilai'] * $relativeWeightData['sumInverse'], 4); ?></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <tr style="background:rgba(33,230,193,0.06);">
                             <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $relativeWeightData['sumInverse'] }}</td>
+                            <td class="font-bold" style="color:#21E6C1;"><?php echo e($relativeWeightData['sumInverse']); ?></td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -204,7 +203,7 @@
             </div>
         </div>
 
-        {{-- Nilai Qi --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -214,30 +213,30 @@
                 <table class="tbl text-center">
                     <thead><tr><th>No</th><th style="text-align:left;">Alternatif</th><th>Nilai Qi</th></tr></thead>
                     <tbody>
-                        @foreach($relativeWeightData['weights'] as $i => $row)
+                        <?php $__currentLoopData = $relativeWeightData['weights']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td>{{ $row['nilai'] }}</td>
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($row['nama_alternatif']); ?></td>
+                            <td><?php echo e($row['nilai']); ?></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
                 <div class="flex items-center gap-3 px-5 py-3 rounded-xl" style="background:rgba(33,230,193,0.08); border:1px solid rgba(33,230,193,0.2);">
                     <i class="fas fa-info-circle" style="color:#21E6C1;"></i>
-                    <p class="text-sm font-bold" style="color:#21E6C1;">Nilai Max Qi = {{ $utilityDegreeData['maxQ'] }}</p>
+                    <p class="text-sm font-bold" style="color:#21E6C1;">Nilai Max Qi = <?php echo e($utilityDegreeData['maxQ']); ?></p>
                 </div>
             </div>
         </div>
 
-        {{-- Nilai Ui --}}
+        
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <i class="fas fa-table" style="color:#21E6C1;"></i>
                 <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Nilai Utilitas Kuantitatif (Ui)</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
-                @php
+                <?php
                 $utilityDegreesUnsorted = [];
                 foreach($utilityDegreeData['utility'] as $item) {
                     $utilityDegreesUnsorted[] = $item;
@@ -245,23 +244,24 @@
                 usort($utilityDegreesUnsorted, function ($a, $b) {
                     return $a['id_alternatif'] <=> $b['id_alternatif'];
                 });
-                @endphp
+                ?>
                 <table class="tbl text-center">
                     <thead><tr><th>No</th><th style="text-align:left;">Alternatif</th><th>Nilai Ui (%)</th></tr></thead>
                     <tbody>
-                        @foreach($utilityDegreesUnsorted as $i => $row)
+                        <?php $__currentLoopData = $utilityDegreesUnsorted; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $i + 1 }}</td>
-                            <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $row['nilai_u'] }}%</td>
+                            <td><?php echo e($i + 1); ?></td>
+                            <td style="text-align:left;"><?php echo e($row['nama_alternatif']); ?></td>
+                            <td class="font-bold" style="color:#21E6C1;"><?php echo e($row['nilai_u']); ?>%</td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
         </div>
 
     </div>
-    @endif
+    <?php endif; ?>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/perhitungan/index.blade.php ENDPATH**/ ?>

@@ -1,26 +1,25 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div>
         <h1 class="page-title"><i class="fas fa-cubes mr-2" style="color:#21E6C1;"></i>Data Sub Kriteria</h1>
         <p class="page-subtitle">Kelola data sub kriteria untuk setiap kriteria</p>
     </div>
 
-    @if($kriterias->isEmpty())
+    <?php if($kriterias->isEmpty()): ?>
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
         <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Kriteria masih kosong. Silahkan tambahkan data kriteria terlebih dahulu.</p>
     </div>
-    @else
+    <?php else: ?>
     <div class="space-y-5">
-        @foreach($kriterias as $kriteria)
+        <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kriteria): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="content-card overflow-hidden">
             <div class="px-6 py-4 flex items-center justify-between" style="border-bottom:1px solid rgba(33,230,193,0.1);">
                 <div class="flex items-center gap-2">
                     <i class="fas fa-table" style="color:#21E6C1;"></i>
-                    <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">{{ $kriteria->nama }} <span style="color:rgba(255,255,255,0.4);">({{ $kriteria->kode }})</span></h2>
+                    <h2 class="font-bold" style="color:rgba(255,255,255,0.8);"><?php echo e($kriteria->nama); ?> <span style="color:rgba(255,255,255,0.4);">(<?php echo e($kriteria->kode); ?>)</span></h2>
                 </div>
-                <a href="{{ route('subkriteria.create', ['kriteria_id' => $kriteria->id_kriteria]) }}" class="btn-primary">
+                <a href="<?php echo e(route('subkriteria.create', ['kriteria_id' => $kriteria->id_kriteria])); ?>" class="btn-primary">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>
             </div>
@@ -35,37 +34,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($kriteria->subkriterias as $index => $subkriteria)
+                        <?php $__empty_1 = true; $__currentLoopData = $kriteria->subkriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $subkriteria): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $subkriteria->nama_subkriteria }}</td>
-                            <td>{{ $subkriteria->nilai }}</td>
+                            <td><?php echo e($index + 1); ?></td>
+                            <td><?php echo e($subkriteria->nama_subkriteria); ?></td>
+                            <td><?php echo e($subkriteria->nilai); ?></td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('subkriteria.edit', $subkriteria->id_subkriteria) }}" class="btn-secondary" style="padding:6px 12px;">
+                                    <a href="<?php echo e(route('subkriteria.edit', $subkriteria->id_subkriteria)); ?>" class="btn-secondary" style="padding:6px 12px;">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
-                                    <button class="btn-danger" style="padding:6px 12px;" onclick="confirmDelete('{{ $subkriteria->id_subkriteria }}', '{{ $subkriteria->nama_subkriteria }}')">
+                                    <button class="btn-danger" style="padding:6px 12px;" onclick="confirmDelete('<?php echo e($subkriteria->id_subkriteria); ?>', '<?php echo e($subkriteria->nama_subkriteria); ?>')">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                    <form id="delete-form-{{ $subkriteria->id_subkriteria }}" action="{{ route('subkriteria.destroy', $subkriteria->id_subkriteria) }}" method="POST" class="hidden">
-                                        @csrf @method('DELETE')
+                                    <form id="delete-form-<?php echo e($subkriteria->id_subkriteria); ?>" action="<?php echo e(route('subkriteria.destroy', $subkriteria->id_subkriteria)); ?>" method="POST" class="hidden">
+                                        <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="4" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">Belum ada data sub kriteria untuk kriteria ini</td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
-    @endif
+    <?php endif; ?>
 </div>
 
 <!-- Delete Modal -->
@@ -101,4 +100,5 @@
         if (currentDeleteId) document.getElementById('delete-form-' + currentDeleteId).submit();
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/subkriteria/index.blade.php ENDPATH**/ ?>

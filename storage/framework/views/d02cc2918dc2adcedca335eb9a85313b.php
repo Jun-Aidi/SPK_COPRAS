@@ -1,12 +1,11 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div class="flex items-center justify-between">
         <div>
             <h1 class="page-title"><i class="fas fa-cube mr-2" style="color:#21E6C1;"></i>Data Kriteria</h1>
             <p class="page-subtitle">Kelola data kriteria penilaian</p>
         </div>
-        <a href="{{ route('kriteria.create') }}" class="btn-primary">
+        <a href="<?php echo e(route('kriteria.create')); ?>" class="btn-primary">
             <i class="fas fa-plus"></i> Tambah Data
         </a>
     </div>
@@ -19,18 +18,18 @@
         <div class="px-6 py-4 space-y-4">
             <!-- Controls -->
             <div class="flex items-center justify-between gap-4">
-                <form action="{{ route('kriteria.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('kriteria.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Show</span>
                     <select name="entries" onchange="this.form.submit()" class="form-input" style="width:70px; padding:6px 10px;">
-                        @foreach([5, 10, 15, 20] as $value)
-                        <option value="{{ $value }}" {{ request('entries', 5) == $value ? 'selected' : '' }}>{{ $value }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = [5, 10, 15, 20]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value); ?>" <?php echo e(request('entries', 5) == $value ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">entries</span>
                 </form>
-                <form action="{{ route('kriteria.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('kriteria.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Search:</span>
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-input" style="width:200px;">
+                    <input type="text" name="search" value="<?php echo e(request('search')); ?>" class="form-input" style="width:200px;">
                     <button type="submit" class="btn-primary" style="padding:8px 12px;"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -49,44 +48,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($kriterias as $index => $kriteria)
+                        <?php $__empty_1 = true; $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $kriteria): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $index + $kriterias->firstItem() }}</td>
-                            <td>{{ $kriteria->kode }}</td>
-                            <td>{{ $kriteria->nama }}</td>
-                            <td>{{ $kriteria->bobot }}</td>
+                            <td><?php echo e($index + $kriterias->firstItem()); ?></td>
+                            <td><?php echo e($kriteria->kode); ?></td>
+                            <td><?php echo e($kriteria->nama); ?></td>
+                            <td><?php echo e($kriteria->bobot); ?></td>
                             <td>
-                                @if($kriteria->jenis == 'Benefit')
+                                <?php if($kriteria->jenis == 'Benefit'): ?>
                                 <span class="badge-active">Benefit</span>
-                                @else
+                                <?php else: ?>
                                 <span class="badge-inactive">Cost</span>
-                                @endif
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('kriteria.edit', $kriteria->id_kriteria) }}" class="btn-secondary" style="padding:6px 12px;">
+                                    <a href="<?php echo e(route('kriteria.edit', $kriteria->id_kriteria)); ?>" class="btn-secondary" style="padding:6px 12px;">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
-                                    <button class="btn-danger" style="padding:6px 12px;" onclick="confirmDelete('{{ $kriteria->id_kriteria }}', '{{ $kriteria->nama }}')">
+                                    <button class="btn-danger" style="padding:6px 12px;" onclick="confirmDelete('<?php echo e($kriteria->id_kriteria); ?>', '<?php echo e($kriteria->nama); ?>')">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                    <form id="delete-form-{{ $kriteria->id_kriteria }}" action="{{ route('kriteria.destroy', $kriteria->id_kriteria) }}" method="POST" class="hidden">
-                                        @csrf @method('DELETE')
+                                    <form id="delete-form-<?php echo e($kriteria->id_kriteria); ?>" action="<?php echo e(route('kriteria.destroy', $kriteria->id_kriteria)); ?>" method="POST" class="hidden">
+                                        <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="6" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">
-                                @if(request('search'))
-                                Tidak ada data yang cocok dengan "{{ request('search') }}"
-                                @else
+                                <?php if(request('search')): ?>
+                                Tidak ada data yang cocok dengan "<?php echo e(request('search')); ?>"
+                                <?php else: ?>
                                 Belum ada data kriteria
-                                @endif
+                                <?php endif; ?>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -94,9 +93,9 @@
             <!-- Pagination -->
             <div class="flex items-center justify-between">
                 <p class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">
-                    Showing {{ $kriterias->firstItem() ?? 0 }} to {{ $kriterias->lastItem() ?? 0 }} of {{ $kriterias->total() }} entries
+                    Showing <?php echo e($kriterias->firstItem() ?? 0); ?> to <?php echo e($kriterias->lastItem() ?? 0); ?> of <?php echo e($kriterias->total()); ?> entries
                 </p>
-                <div>{{ $kriterias->appends(request()->query())->links('pagination.custom') }}</div>
+                <div><?php echo e($kriterias->appends(request()->query())->links('pagination.custom')); ?></div>
             </div>
         </div>
     </div>
@@ -141,4 +140,5 @@
         if (currentDeleteId) document.getElementById('delete-form-' + currentDeleteId).submit();
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/kriteria/index.blade.php ENDPATH**/ ?>

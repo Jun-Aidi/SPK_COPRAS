@@ -11,8 +11,6 @@ use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,19 +25,13 @@ Route::middleware(['guest'])->group(function () {
         return redirect()->route('login');
     });
 
-    // Authentication routes with rate limiting (max 10 attempts per minute)
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('throttle:10,1');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post')->middleware('throttle:10,1');
+    // Authentication routes
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
-    // Registration routes with rate limiting (max 5 attempts per minute)
-    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register')->middleware('throttle:5,1');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.post')->middleware('throttle:5,1');
-
-    // Password reset routes with rate limiting (max 5 attempts per minute)
-    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request')->middleware('throttle:5,1');
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email')->middleware('throttle:5,1');
-    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset')->middleware('throttle:5,1');
-    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update')->middleware('throttle:5,1');
+    // Registration routes
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 });
 
 // Authenticated routes

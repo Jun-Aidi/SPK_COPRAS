@@ -1,17 +1,16 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div>
         <h1 class="page-title"><i class="fas fa-pen-to-square mr-2" style="color:#21E6C1;"></i>Data Penilaian</h1>
         <p class="page-subtitle">Input penilaian untuk setiap alternatif</p>
     </div>
 
-    @if($totalAlternatifs == 0)
+    <?php if($totalAlternatifs == 0): ?>
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
         <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Alternatif masih kosong. Silahkan tambahkan data alternatif terlebih dahulu.</p>
     </div>
-    @else
+    <?php else: ?>
     <div class="content-card overflow-hidden">
         <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
             <i class="fas fa-table" style="color:#21E6C1;"></i>
@@ -19,18 +18,18 @@
         </div>
         <div class="px-6 py-4 space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <form action="{{ route('penilaian.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('penilaian.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Show</span>
                     <select name="entries" onchange="this.form.submit()" class="form-input" style="width:70px; padding:6px 10px;">
-                        @foreach([5, 10, 15, 20] as $value)
-                        <option value="{{ $value }}" {{ request('entries', 5) == $value ? 'selected' : '' }}>{{ $value }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = [5, 10, 15, 20]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value); ?>" <?php echo e(request('entries', 5) == $value ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">entries</span>
                 </form>
-                <form action="{{ route('penilaian.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('penilaian.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Search:</span>
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-input" style="width:200px;">
+                    <input type="text" name="search" value="<?php echo e(request('search')); ?>" class="form-input" style="width:200px;">
                     <button type="submit" class="btn-primary" style="padding:8px 12px;"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -46,55 +45,55 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($alternatifs as $index => $alternatif)
+                        <?php $__empty_1 = true; $__currentLoopData = $alternatifs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $alternatif): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $index + $alternatifs->firstItem() }}</td>
-                            <td>{{ $alternatif->kode_alternatif }}</td>
-                            <td>{{ $alternatif->nama_alternatif }}</td>
+                            <td><?php echo e($index + $alternatifs->firstItem()); ?></td>
+                            <td><?php echo e($alternatif->kode_alternatif); ?></td>
+                            <td><?php echo e($alternatif->nama_alternatif); ?></td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    @if($alternatif->has_nilai)
-                                    <a href="{{ route('penilaian.edit', ['id' => $alternatif->id_alternatif]) }}" class="btn-secondary" style="padding:6px 16px;">
+                                    <?php if($alternatif->has_nilai): ?>
+                                    <a href="<?php echo e(route('penilaian.edit', ['id' => $alternatif->id_alternatif])); ?>" class="btn-secondary" style="padding:6px 16px;">
                                         <i class="fas fa-pen-to-square"></i> Edit
                                     </a>
-                                    <button class="btn-danger" style="padding:6px 16px;" onclick="confirmDelete('{{ $alternatif->id_alternatif }}', '{{ $alternatif->nama_alternatif }}')">
+                                    <button class="btn-danger" style="padding:6px 16px;" onclick="confirmDelete('<?php echo e($alternatif->id_alternatif); ?>', '<?php echo e($alternatif->nama_alternatif); ?>')">
                                         <i class="fas fa-trash"></i> Hapus
                                     </button>
-                                    <form id="delete-form-{{ $alternatif->id_alternatif }}" action="{{ route('penilaian.destroy', $alternatif->id_alternatif) }}" method="POST" class="hidden">
-                                        @csrf @method('DELETE')
+                                    <form id="delete-form-<?php echo e($alternatif->id_alternatif); ?>" action="<?php echo e(route('penilaian.destroy', $alternatif->id_alternatif)); ?>" method="POST" class="hidden">
+                                        <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     </form>
-                                    @else
-                                    <a href="{{ route('penilaian.create', ['id' => $alternatif->id_alternatif]) }}" class="btn-primary" style="padding:6px 16px;">
+                                    <?php else: ?>
+                                    <a href="<?php echo e(route('penilaian.create', ['id' => $alternatif->id_alternatif])); ?>" class="btn-primary" style="padding:6px 16px;">
                                         <i class="fas fa-plus"></i> Input
                                     </a>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="4" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">
-                                @if(request('search'))
-                                Tidak ada data yang cocok dengan "{{ request('search') }}"
-                                @else
+                                <?php if(request('search')): ?>
+                                Tidak ada data yang cocok dengan "<?php echo e(request('search')); ?>"
+                                <?php else: ?>
                                 Belum ada data
-                                @endif
+                                <?php endif; ?>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
             <div class="flex items-center justify-between">
                 <p class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">
-                    Showing {{ $alternatifs->firstItem() ?? 0 }} to {{ $alternatifs->lastItem() ?? 0 }} of {{ $alternatifs->total() }} entries
+                    Showing <?php echo e($alternatifs->firstItem() ?? 0); ?> to <?php echo e($alternatifs->lastItem() ?? 0); ?> of <?php echo e($alternatifs->total()); ?> entries
                 </p>
-                <div>{{ $alternatifs->appends(request()->query())->links('pagination.custom') }}</div>
+                <div><?php echo e($alternatifs->appends(request()->query())->links('pagination.custom')); ?></div>
             </div>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 </div>
 
 <div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:rgba(7,30,61,0.75); backdrop-filter:blur(6px);">
@@ -129,4 +128,5 @@
         if (currentDeleteId) document.getElementById('delete-form-' + currentDeleteId).submit();
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/penilaian/index.blade.php ENDPATH**/ ?>

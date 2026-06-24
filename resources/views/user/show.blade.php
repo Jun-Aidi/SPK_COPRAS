@@ -1,68 +1,56 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="space-y-4">
-    <div class="space-y-6">
-        <div class="flex flex-row items-center justify-between">
-            <div class="flex flex-row items-center">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-users-gear text-3xl opacity-60"></i>
-                    <h1 class="text-3xl opacity-50">Data User</h1>
-                </div>
-            </div>
-            <!-- KEMBALI KE INDEX -->
-            <a href="{{ route('user.index') }}">
-                <button class="flex flex-row text-white rounded-md">
-                    <i class="fa-solid fa-angle-left rounded-tl-md rounded-bl-md px-4 py-2 bg-gray-600 font-bold text-lg"></i>
-                    <h1 class="bg-gray-500 px-4 py-2 rounded-tr-md rounded-br-md">Kembali</h1>
-                </button>
-            </a>
+<div class="space-y-5">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="page-title"><i class="fas fa-users-gear mr-2" style="color:#21E6C1;"></i>Data User</h1>
+            <p class="page-subtitle">Detail informasi pengguna</p>
         </div>
-        <div class="flex flex-col space-y-4">
-            <div class="w-full h-full shadow-xl">
-                <div class="flex items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                    <i class="fa-solid fa-eye text-base"></i>
-                    <h1 class="text-lg font-semibold opacity-75">Detail Data User</h1>
-                </div>
-                <div class="flex flex-col px-6 py-4 bg-white space-y-8">
-                    <!-- Tabel 2 Kolom 5 Baris dengan lebar kolom kriteria diperkecil -->
-                    <table class="table-auto w-full">
-                        <tbody>
-                            <tr>
-                                <td class="border px-4 py-2 w-1/3 font-bold opacity-75 h-12 text-gray-700 bg-gray-100 whitespace-nowrap">E-Mail</td>
-                                <td class="border px-4 py-2 font-semibold opacity-50">{{ $user->email }}</td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2 w-1/3 font-bold opacity-75 h-12 text-gray-700 bg-gray-100 whitespace-nowrap">Username</td>
-                                <td class="border px-4 py-2 font-semibold opacity-50">{{ $user->username }}</td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2 w-1/3 font-bold opacity-75 h-12 text-gray-700 bg-gray-100 whitespace-nowrap">Password</td>
-                                <td class="border px-4 py-2 font-semibold opacity-50">*****</td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2 w-1/3 font-bold opacity-75 h-12 text-gray-700 bg-gray-100 whitespace-nowrap">Nama Lengkap</td>
-                                <td class="border px-4 py-2 font-semibold opacity-50">{{ $user->nama_lengkap }}</td>
-                            </tr>
-                            <tr>
-                                <td class="border px-4 py-2 w-1/3 font-bold opacity-75 h-12 text-gray-700 bg-gray-100 whitespace-nowrap">Role</td>
-                                <td class="border px-4 py-2 font-semibold opacity-50">{{ ucfirst($user->role) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <a href="{{ route('user.index') }}" class="btn-secondary">
+            <i class="fas fa-angle-left"></i> Kembali
+        </a>
+    </div>
 
-                <div class="flex justify-end items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                    <a href="{{ route('user.edit', $user->id_user) }}" class="flex items-center text-white space-x-2 px-4 py-2 bg-teal-600 rounded-md">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <h1>Edit</h1>
-                    </a>
-                    <a href="{{ route('user.index') }}" class="flex items-center text-white space-x-2 px-4 py-2 bg-cyan-400 rounded-md">
-                        <i class="fa-solid fa-list"></i>
-                        <h1>Daftar User</h1>
-                    </a>
-                </div>
+    <div class="content-card overflow-hidden">
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
+            <i class="fas fa-eye" style="color:#21E6C1;"></i>
+            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Detail Data User</h2>
+        </div>
+        <div class="px-6 py-6 space-y-4">
+            @php
+            $fields = [
+                'Nama Lengkap' => $user->nama_lengkap,
+                'Username'     => $user->username,
+                'E-Mail'       => $user->email,
+                'Password'     => '*****',
+                'Role'         => ucfirst($user->role),
+                'Status'       => $user->status,
+            ];
+            @endphp
+            @foreach($fields as $label => $value)
+            <div class="flex items-center gap-4 py-3" style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span class="w-36 flex-shrink-0 text-xs font-bold" style="color:rgba(255,255,255,0.4);">{{ strtoupper($label) }}</span>
+                @if($label == 'Status')
+                    @if($value == 'Active')
+                    <span class="badge-active">{{ $value }}</span>
+                    @else
+                    <span class="badge-inactive">{{ $value }}</span>
+                    @endif
+                @elseif($label == 'Role')
+                    @if($user->role == 'admin')
+                    <span class="badge-admin">{{ $value }}</span>
+                    @else
+                    <span class="badge-active">{{ $value }}</span>
+                    @endif
+                @else
+                <span class="text-sm font-semibold" style="color:rgba(255,255,255,0.8);">{{ $value }}</span>
+                @endif
             </div>
+            @endforeach
+        </div>
+        <div class="px-6 pb-6 flex justify-end gap-3">
+            <a href="{{ route('user.index') }}" class="btn-secondary"><i class="fas fa-list"></i> Daftar User</a>
+            <a href="{{ route('user.edit', $user->id_user) }}" class="btn-primary"><i class="fas fa-pen-to-square"></i> Edit</a>
         </div>
     </div>
 </div>

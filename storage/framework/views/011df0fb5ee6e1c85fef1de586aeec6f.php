@@ -1,12 +1,11 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div class="flex items-center justify-between">
         <div>
             <h1 class="page-title"><i class="fas fa-users-gear mr-2" style="color:#21E6C1;"></i>Data User</h1>
             <p class="page-subtitle">Kelola akun pengguna sistem</p>
         </div>
-        <a href="{{ route('user.create') }}" class="btn-primary">
+        <a href="<?php echo e(route('user.create')); ?>" class="btn-primary">
             <i class="fas fa-plus"></i> Tambah Data
         </a>
     </div>
@@ -18,20 +17,20 @@
         </div>
         <div class="px-6 py-4 space-y-4">
             <div class="flex items-center justify-between gap-4">
-                <form action="{{ route('user.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('user.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Show</span>
                     <select name="entries" onchange="this.form.submit()" class="form-input" style="width:70px; padding:6px 10px;">
-                        @foreach([5, 10, 15, 20] as $value)
-                        <option value="{{ $value }}" {{ request('entries', 5) == $value ? 'selected' : '' }}>{{ $value }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = [5, 10, 15, 20]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value); ?>" <?php echo e(request('entries', 5) == $value ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">entries</span>
-                    @if(request('search'))<input type="hidden" name="search" value="{{ request('search') }}">@endif
+                    <?php if(request('search')): ?><input type="hidden" name="search" value="<?php echo e(request('search')); ?>"><?php endif; ?>
                 </form>
-                <form action="{{ route('user.index') }}" method="GET" class="flex items-center gap-2">
+                <form action="<?php echo e(route('user.index')); ?>" method="GET" class="flex items-center gap-2">
                     <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Search:</span>
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-input" style="width:200px;">
-                    @if(request('entries'))<input type="hidden" name="entries" value="{{ request('entries') }}">@endif
+                    <input type="text" name="search" value="<?php echo e(request('search')); ?>" class="form-input" style="width:200px;">
+                    <?php if(request('entries')): ?><input type="hidden" name="entries" value="<?php echo e(request('entries')); ?>"><?php endif; ?>
                     <button type="submit" class="btn-primary" style="padding:8px 12px;"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -50,64 +49,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($users as $index => $user)
+                        <?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $index + $users->firstItem() }}</td>
-                            <td>{{ $user->nama_lengkap }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td><?php echo e($index + $users->firstItem()); ?></td>
+                            <td><?php echo e($user->nama_lengkap); ?></td>
+                            <td><?php echo e($user->username); ?></td>
+                            <td><?php echo e($user->email); ?></td>
                             <td>
-                                @if($user->role === 'admin')
-                                <span class="badge-admin">{{ ucfirst($user->role) }}</span>
-                                @else
-                                <span class="badge-active">{{ ucfirst($user->role) }}</span>
-                                @endif
+                                <?php if($user->role === 'admin'): ?>
+                                <span class="badge-admin"><?php echo e(ucfirst($user->role)); ?></span>
+                                <?php else: ?>
+                                <span class="badge-active"><?php echo e(ucfirst($user->role)); ?></span>
+                                <?php endif; ?>
                             </td>
                             <td>
-                                @if($user->status === 'Active')
-                                <span class="badge-active">{{ $user->status }}</span>
-                                @else
-                                <span class="badge-inactive">{{ $user->status }}</span>
-                                @endif
+                                <?php if($user->status === 'Active'): ?>
+                                <span class="badge-active"><?php echo e($user->status); ?></span>
+                                <?php else: ?>
+                                <span class="badge-inactive"><?php echo e($user->status); ?></span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="{{ route('user.show', $user->id_user) }}" class="btn-primary" style="padding:6px 10px; background:rgba(39,142,165,0.2); color:#278EA5; border:1px solid rgba(39,142,165,0.3);" title="Lihat Detail">
+                                    <a href="<?php echo e(route('user.show', $user->id_user)); ?>" class="btn-primary" style="padding:6px 10px; background:rgba(39,142,165,0.2); color:#278EA5; border:1px solid rgba(39,142,165,0.3);" title="Lihat Detail">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('user.edit', $user->id_user) }}" class="btn-secondary" style="padding:6px 10px;" title="Edit Data">
+                                    <a href="<?php echo e(route('user.edit', $user->id_user)); ?>" class="btn-secondary" style="padding:6px 10px;" title="Edit Data">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
-                                    <button class="btn-danger" style="padding:6px 10px;" onclick="confirmDelete('{{ $user->id_user }}', '{{ $user->nama_lengkap }}')" title="Hapus Data">
+                                    <button class="btn-danger" style="padding:6px 10px;" onclick="confirmDelete('<?php echo e($user->id_user); ?>', '<?php echo e($user->nama_lengkap); ?>')" title="Hapus Data">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                    <form id="delete-form-{{ $user->id_user }}" action="{{ route('user.destroy', $user->id_user) }}" method="POST" class="hidden">
-                                        @csrf @method('DELETE')
+                                    <form id="delete-form-<?php echo e($user->id_user); ?>" action="<?php echo e(route('user.destroy', $user->id_user)); ?>" method="POST" class="hidden">
+                                        <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="7" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">
-                                @if(request('search'))
-                                Tidak ada user yang cocok dengan "{{ request('search') }}"
-                                @else
+                                <?php if(request('search')): ?>
+                                Tidak ada user yang cocok dengan "<?php echo e(request('search')); ?>"
+                                <?php else: ?>
                                 Belum ada data user
-                                @endif
+                                <?php endif; ?>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
             <div class="flex items-center justify-between">
                 <p class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">
-                    Showing {{ $users->firstItem() ?? 0 }} to {{ $users->lastItem() ?? 0 }} of {{ $users->total() }} entries
-                    @if(request('search'))(filtered)@endif
+                    Showing <?php echo e($users->firstItem() ?? 0); ?> to <?php echo e($users->lastItem() ?? 0); ?> of <?php echo e($users->total()); ?> entries
+                    <?php if(request('search')): ?>(filtered)<?php endif; ?>
                 </p>
-                <div>{{ $users->appends(request()->query())->links('pagination.custom') }}</div>
+                <div><?php echo e($users->appends(request()->query())->links('pagination.custom')); ?></div>
             </div>
         </div>
     </div>
@@ -152,4 +151,5 @@
         if (e.key === 'Escape') closeDeleteModal();
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/user/index.blade.php ENDPATH**/ ?>

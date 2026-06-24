@@ -1,65 +1,42 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="space-y-4">
-    <div class="space-y-6">
-        <div class="flex flex-row items-center justify-between">
-            <div class="flex flex-row items-center">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-cubes text-3xl opacity-60"></i>
-                    <h1 class="text-3xl opacity-50">Data Sub Kriteria</h1>
-                </div>
-            </div>
-            <a href="{{ route('subkriteria.index') }}" class="flex flex-row text-white rounded-md">
-                <i class="fa-solid fa-angle-left rounded-tl-md rounded-bl-md px-4 py-2 bg-gray-600 font-bold text-lg"></i>
-                <h1 class="bg-gray-500 px-4 py-2 rounded-tr-md rounded-br-md">Kembali</h1>
-            </a>
+<div class="space-y-5">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="page-title"><i class="fas fa-cubes mr-2" style="color:#21E6C1;"></i>Data Sub Kriteria</h1>
+            <p class="page-subtitle">Edit data sub kriteria</p>
         </div>
-        <div class="flex flex-col space-y-4">
-            <div class="w-full h-full shadow-xl">
-                <div class="flex items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                    <i class="fa-solid fa-pen-to-square text-base"></i>
-                    <h1 class="text-lg font-semibold opacity-75">Edit Sub Kriteria untuk {{ $kriteria->nama }} ({{ $kriteria->kode }})</h1>
-                </div>
-                <form action="{{ route('subkriteria.update', $subkriteria->id_subkriteria) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="flex flex-col px-6 py-4 bg-white space-y-8">
-                        <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                            <h1>Nama Sub Kriteria</h1>
-                            <input
-                                type="text"
-                                name="nama_subkriteria"
-                                value="{{ old('nama_subkriteria', $subkriteria->nama_subkriteria) }}"
-                                class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nama_subkriteria') border-red-500 @enderror">
-                            @error('nama_subkriteria')
-                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                            <h1>Nilai</h1>
-                            <input
-                                type="number"
-                                name="nilai"
-                                value="{{ old('nilai', $subkriteria->nilai) }}"
-                                class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nilai') border-red-500 @enderror">
-                            @error('nilai')
-                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="flex justify-end items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                        <button type="submit" class="flex items-center text-white space-x-2 px-4 py-2 bg-teal-600 rounded-md">
-                            <i class="fa-solid fa-floppy-disk"></i>
-                            <h1>Simpan</h1>
-                        </button>
-                        <button type="reset" class="flex items-center text-white space-x-2 px-4 py-2 bg-cyan-400 rounded-md">
-                            <i class="fa-solid fa-rotate"></i>
-                            <h1>Reset</h1>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <a href="{{ route('subkriteria.index') }}" class="btn-secondary">
+            <i class="fas fa-angle-left"></i> Kembali
+        </a>
     </div>
-    @endsection
+
+    <div class="content-card overflow-hidden">
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
+            <i class="fas fa-pen-to-square" style="color:#21E6C1;"></i>
+            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Edit Sub Kriteria untuk {{ $kriteria->nama }} ({{ $kriteria->kode }})</h2>
+        </div>
+        <form action="{{ route('subkriteria.update', $subkriteria->id_subkriteria) }}" method="POST">
+            @csrf @method('PUT')
+            <div class="px-6 py-6 space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="form-label">Nama Sub Kriteria</label>
+                        <input type="text" name="nama_subkriteria" value="{{ old('nama_subkriteria', $subkriteria->nama_subkriteria) }}" class="form-input @error('nama_subkriteria') border-red-500 @enderror">
+                        @error('nama_subkriteria')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Nilai</label>
+                        <input type="number" name="nilai" value="{{ old('nilai', $subkriteria->nilai) }}" class="form-input @error('nilai') border-red-500 @enderror">
+                        @error('nilai')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 pb-6 flex justify-end gap-3">
+                <button type="reset" class="btn-secondary"><i class="fas fa-rotate"></i> Reset</button>
+                <button type="submit" class="btn-primary"><i class="fas fa-floppy-disk"></i> Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

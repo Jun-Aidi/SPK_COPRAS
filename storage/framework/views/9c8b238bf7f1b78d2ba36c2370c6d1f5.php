@@ -1,64 +1,65 @@
-@if ($paginator->hasPages())
+<?php if($paginator->hasPages()): ?>
 <nav>
     <div class="flex items-center gap-1">
-        {{-- Previous Page Link --}}
-        @if ($paginator->onFirstPage())
+        
+        <?php if($paginator->onFirstPage()): ?>
         <span class="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-lg cursor-not-allowed"
               style="background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.2);">
             <i class="fas fa-chevron-left"></i>
         </span>
-        @else
-        <a href="{{ $paginator->previousPageUrl() }}" rel="prev"
+        <?php else: ?>
+        <a href="<?php echo e($paginator->previousPageUrl()); ?>" rel="prev"
            class="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-lg transition-all"
            style="background:rgba(39,142,165,0.15); color:#278EA5; border:1px solid rgba(39,142,165,0.25);"
            onmouseover="this.style.background='rgba(39,142,165,0.3)'; this.style.color='#fff';"
            onmouseout="this.style.background='rgba(39,142,165,0.15)'; this.style.color='#278EA5';">
             <i class="fas fa-chevron-left"></i>
         </a>
-        @endif
+        <?php endif; ?>
 
-        {{-- Pagination Elements --}}
-        @foreach ($elements as $element)
-        {{-- "Three Dots" Separator --}}
-        @if (is_string($element))
+        
+        <?php $__currentLoopData = $elements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        
+        <?php if(is_string($element)): ?>
         <span class="inline-flex items-center px-3 py-1.5 text-xs font-bold"
-              style="color:rgba(255,255,255,0.3);">{{ $element }}</span>
-        @endif
+              style="color:rgba(255,255,255,0.3);"><?php echo e($element); ?></span>
+        <?php endif; ?>
 
-        {{-- Array Of Links --}}
-        @if (is_array($element))
-        @foreach ($element as $page => $url)
-        @if ($page == $paginator->currentPage())
+        
+        <?php if(is_array($element)): ?>
+        <?php $__currentLoopData = $element; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($page == $paginator->currentPage()): ?>
         <span class="inline-flex items-center px-3 py-1.5 text-xs font-black rounded-lg"
-              style="background:linear-gradient(135deg,#278EA5,#21E6C1); color:#071E3D;">{{ $page }}</span>
-        @else
-        <a href="{{ $url }}"
+              style="background:linear-gradient(135deg,#278EA5,#21E6C1); color:#071E3D;"><?php echo e($page); ?></span>
+        <?php else: ?>
+        <a href="<?php echo e($url); ?>"
            class="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-lg transition-all"
            style="background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.08);"
            onmouseover="this.style.background='rgba(33,230,193,0.1)'; this.style.color='#21E6C1'; this.style.borderColor='rgba(33,230,193,0.25)';"
            onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='rgba(255,255,255,0.55)'; this.style.borderColor='rgba(255,255,255,0.08)';">
-            {{ $page }}
-        </a>
-        @endif
-        @endforeach
-        @endif
-        @endforeach
+            <?php echo e($page); ?>
 
-        {{-- Next Page Link --}}
-        @if ($paginator->hasMorePages())
-        <a href="{{ $paginator->nextPageUrl() }}" rel="next"
+        </a>
+        <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+        
+        <?php if($paginator->hasMorePages()): ?>
+        <a href="<?php echo e($paginator->nextPageUrl()); ?>" rel="next"
            class="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-lg transition-all"
            style="background:rgba(39,142,165,0.15); color:#278EA5; border:1px solid rgba(39,142,165,0.25);"
            onmouseover="this.style.background='rgba(39,142,165,0.3)'; this.style.color='#fff';"
            onmouseout="this.style.background='rgba(39,142,165,0.15)'; this.style.color='#278EA5';">
             <i class="fas fa-chevron-right"></i>
         </a>
-        @else
+        <?php else: ?>
         <span class="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-lg cursor-not-allowed"
               style="background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.2);">
             <i class="fas fa-chevron-right"></i>
         </span>
-        @endif
+        <?php endif; ?>
     </div>
 </nav>
-@endif
+<?php endif; ?><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/pagination/custom.blade.php ENDPATH**/ ?>

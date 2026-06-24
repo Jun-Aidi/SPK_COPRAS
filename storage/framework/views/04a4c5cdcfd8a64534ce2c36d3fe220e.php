@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPK COPRAS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/montserrat.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/montserrat.css')); ?>">
     <link rel="stylesheet" href="/fontawesome/css/all.min.css">
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+    <script src="<?php echo e(asset('js/jquery-3.7.1.min.js')); ?>"></script>
     <style>
         :root {
             --navy:    #071E3D;
@@ -413,13 +413,13 @@
         }
 
         /* ── Animations ── */
-        @@keyframes slideDown {
+        @keyframes slideDown {
             from { transform: translateY(-100%); opacity: 0; }
             to   { transform: translateY(0);     opacity: 1; }
         }
         .slide-down { animation: slideDown 0.3s ease-out forwards; }
 
-        @@keyframes slideUp {
+        @keyframes slideUp {
             from { transform: translateY(0);     opacity: 1; }
             to   { transform: translateY(-100%); opacity: 0; }
         }
@@ -451,8 +451,8 @@
 
             <!-- Dashboard -->
             <div style="padding: 12px 0;">
-                <a href="{{ route('dashboard') }}"
-                   class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="<?php echo e(route('dashboard')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('dashboard') ? 'active' : ''); ?>">
                     <i class="fas fa-house-chimney"></i>
                     Dashboard
                 </a>
@@ -463,30 +463,30 @@
             <!-- Master Data -->
             <div class="sidebar-section-label">MASTER DATA</div>
             <div style="padding-bottom: 8px;">
-                @if(auth()->user()->isAdmin())
-                <a href="{{ route('kriteria.index') }}"
-                   class="sidebar-item {{ request()->routeIs('kriteria.*') ? 'active' : '' }}">
+                <?php if(auth()->user()->isAdmin()): ?>
+                <a href="<?php echo e(route('kriteria.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('kriteria.*') ? 'active' : ''); ?>">
                     <i class="fas fa-cube"></i> Data Kriteria
                 </a>
-                <a href="{{ route('subkriteria.index') }}"
-                   class="sidebar-item {{ request()->routeIs('subkriteria.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('subkriteria.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('subkriteria.*') ? 'active' : ''); ?>">
                     <i class="fas fa-cubes"></i> Data Sub Kriteria
                 </a>
-                <a href="{{ route('alternatif.index') }}"
-                   class="sidebar-item {{ request()->routeIs('alternatif.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('alternatif.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('alternatif.*') ? 'active' : ''); ?>">
                     <i class="fas fa-users"></i> Data Alternatif
                 </a>
-                <a href="{{ route('penilaian.index') }}"
-                   class="sidebar-item {{ request()->routeIs('penilaian.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('penilaian.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('penilaian.*') ? 'active' : ''); ?>">
                     <i class="fas fa-pen-to-square"></i> Data Penilaian
                 </a>
-                <a href="{{ route('perhitungan.index') }}"
-                   class="sidebar-item {{ request()->routeIs('perhitungan.*') ? 'active' : '' }}">
+                <a href="<?php echo e(route('perhitungan.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('perhitungan.*') ? 'active' : ''); ?>">
                     <i class="fas fa-calculator"></i> Data Perhitungan
                 </a>
-                @endif
-                <a href="{{ route('hasilakhir.index') }}"
-                   class="sidebar-item {{ request()->routeIs('hasilakhir.*') ? 'active' : '' }}">
+                <?php endif; ?>
+                <a href="<?php echo e(route('hasilakhir.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('hasilakhir.*') ? 'active' : ''); ?>">
                     <i class="fas fa-chart-line"></i> Data Hasil Akhir
                 </a>
             </div>
@@ -496,14 +496,14 @@
             <!-- Master User -->
             <div class="sidebar-section-label">MASTER USER</div>
             <div style="padding-bottom: 8px;">
-                @if(auth()->user()->isAdmin())
-                <a href="{{ route('user.index') }}"
-                   class="sidebar-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
+                <?php if(auth()->user()->isAdmin()): ?>
+                <a href="<?php echo e(route('user.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('user.*') ? 'active' : ''); ?>">
                     <i class="fas fa-users-gear"></i> Data User
                 </a>
-                @endif
-                <a href="{{ route('profile.index') }}"
-                   class="sidebar-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                <?php endif; ?>
+                <a href="<?php echo e(route('profile.index')); ?>"
+                   class="sidebar-item <?php echo e(request()->routeIs('profile.*') ? 'active' : ''); ?>">
                     <i class="fas fa-user"></i> Data Profile
                 </a>
             </div>
@@ -527,11 +527,11 @@
                         <div class="profile-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <span class="profile-username">{{ auth()->user()->username }}</span>
+                        <span class="profile-username"><?php echo e(auth()->user()->username); ?></span>
                         <i class="fas fa-chevron-down" style="color:rgba(255,255,255,0.4); font-size:0.7rem;"></i>
                     </div>
                     <div class="profile-dropdown hidden" id="profileDropdownContent">
-                        <a href="{{ route('profile.index') }}" class="dropdown-item">
+                        <a href="<?php echo e(route('profile.index')); ?>" class="dropdown-item">
                             <i class="fas fa-user-circle"></i> Profile
                         </a>
                         <div class="dropdown-divider"></div>
@@ -544,18 +544,20 @@
 
             <!-- Page Content -->
             <main class="main-content">
-                @if(session('success'))
+                <?php if(session('success')): ?>
                 <div class="alert-success mb-5 flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i> {{ session('success') }}
-                </div>
-                @endif
-                @if(session('error'))
-                <div class="alert-error mb-5 flex items-center gap-2">
-                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-                </div>
-                @endif
+                    <i class="fas fa-check-circle"></i> <?php echo e(session('success')); ?>
 
-                @yield('content')
+                </div>
+                <?php endif; ?>
+                <?php if(session('error')): ?>
+                <div class="alert-error mb-5 flex items-center gap-2">
+                    <i class="fas fa-exclamation-circle"></i> <?php echo e(session('error')); ?>
+
+                </div>
+                <?php endif; ?>
+
+                <?php echo $__env->yieldContent('content'); ?>
             </main>
         </div>
     </div>
@@ -587,8 +589,8 @@
                         class="btn-secondary" style="border-radius:8px;">
                     <i class="fas fa-xmark"></i> Batal
                 </button>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
+                <form action="<?php echo e(route('logout')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <button type="submit" class="btn-danger" style="border-radius:8px;">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
@@ -645,4 +647,4 @@
     </script>
 </body>
 
-</html>
+</html><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/layouts/app.blade.php ENDPATH**/ ?>

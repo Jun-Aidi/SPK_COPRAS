@@ -1,141 +1,72 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="space-y-4">
-    <div class="space-y-6">
-        <div class="flex flex-row items-center justify-between">
-            <div class="flex flex-row items-center">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-users-gear text-3xl opacity-60"></i>
-                    <h1 class="text-3xl opacity-50">Data User</h1>
+<div class="space-y-5">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="page-title"><i class="fas fa-users-gear mr-2" style="color:#21E6C1;"></i>Data User</h1>
+            <p class="page-subtitle">Edit data pengguna</p>
+        </div>
+        <a href="{{ route('user.index') }}" class="btn-secondary">
+            <i class="fas fa-angle-left"></i> Kembali
+        </a>
+    </div>
+
+    <div class="content-card overflow-hidden">
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
+            <i class="fas fa-pen-to-square" style="color:#21E6C1;"></i>
+            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Edit Data User</h2>
+        </div>
+        <form action="{{ route('user.update', $user->id_user) }}" method="POST">
+            @csrf @method('PUT')
+            <div class="px-6 py-6 space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $user->nama_lengkap) }}" class="form-input @error('nama_lengkap') border-red-500 @enderror" required>
+                        @error('nama_lengkap')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="form-input @error('username') border-red-500 @enderror" required>
+                        @error('username')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="form-input @error('email') border-red-500 @enderror" required>
+                        @error('email')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Role</label>
+                        <select name="role" class="form-input @error('role') border-red-500 @enderror" required>
+                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
+                        </select>
+                        @error('role')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Password <span style="font-weight:400; color:rgba(255,255,255,0.35);">(Kosongkan jika tidak ingin mengubah)</span></label>
+                        <input type="password" name="password" placeholder="Password baru" class="form-input @error('password') border-red-500 @enderror">
+                        @error('password')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" name="password_confirmation" placeholder="Konfirmasi password baru" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-input @error('status') border-red-500 @enderror" required>
+                            <option value="Active" {{ old('status', $user->status) == 'Active' ? 'selected' : '' }}>Active</option>
+                            <option value="Inactive" {{ old('status', $user->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        @error('status')<p class="mt-1 text-xs font-semibold" style="color:#fca5a5;">{{ $message }}</p>@enderror
+                    </div>
                 </div>
             </div>
-            <a href="{{ route('user.index') }}">
-                <button class="flex flex-row text-white rounded-md">
-                    <i class="fa-solid fa-angle-left rounded-tl-md rounded-bl-md px-4 py-2 bg-gray-600 font-bold text-lg"></i>
-                    <h1 class="bg-gray-500 px-4 py-2 rounded-tr-md rounded-br-md">Kembali</h1>
-                </button>
-            </a>
-        </div>
-        <div class="flex flex-col space-y-4">
-            <form action="{{ route('user.update', $user->id_user) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="w-full h-full shadow-xl">
-                    <div class="flex items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                        <i class="fa-solid fa-pen-to-square text-base"></i>
-                        <h1 class="text-lg font-semibold opacity-75">Edit Data User</h1>
-                    </div>
-                    <div class="flex flex-col px-6 py-4 bg-white space-y-8">
-                        <div class="flex items-start justify-between space-x-8">
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Nama Lengkap</h1>
-                                <input
-                                    type="text"
-                                    name="nama_lengkap"
-                                    value="{{ old('nama_lengkap', $user->nama_lengkap) }}"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nama_lengkap') border-red-500 @enderror"
-                                    required>
-                                @error('nama_lengkap')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Username</h1>
-                                <input
-                                    type="text"
-                                    name="username"
-                                    value="{{ old('username', $user->username) }}"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('username') border-red-500 @enderror"
-                                    required>
-                                @error('username')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="flex items-start justify-between space-x-8">
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Email</h1>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value="{{ old('email', $user->email) }}"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror"
-                                    required>
-                                @error('email')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Role</h1>
-                                <select
-                                    name="role"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('role') border-red-500 @enderror"
-                                    required>
-                                    <option value="" disabled>Pilih Role</option>
-                                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
-                                </select>
-                                @error('role')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="flex items-start justify-between space-x-8">
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Password <span class="text-xs text-gray-500">(Biarkan kosong jika tidak ingin mengubah)</span></h1>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
-                                @error('password')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Konfirmasi Password</h1>
-                                <input
-                                    type="password"
-                                    name="password_confirmation"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password_confirmation') border-red-500 @enderror">
-                                @error('password_confirmation')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="flex items-start justify-between space-x-8">
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <h1>Status</h1>
-                                <select
-                                    name="status"
-                                    class="w-full border border-gray-400 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-500 @enderror"
-                                    required>
-                                    <option value="" disabled>Pilih Status</option>
-                                    <option value="Active" {{ old('status', $user->status) == 'Active' ? 'selected' : '' }}>Active</option>
-                                    <option value="Inactive" {{ old('status', $user->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
-                                </select>
-                                @error('status')
-                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="flex flex-col font-bold opacity-50 space-y-4 w-full">
-                                <!-- Empty div to maintain layout balance -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-end items-center space-x-2 px-6 py-4 bg-[#F8F8F8] text-[#FFAE00] border-b-2 border-black-100 ">
-                        <button type="submit" class="flex items-center text-white space-x-2 px-4 py-2 bg-teal-600 rounded-md">
-                            <i class="fa-solid fa-floppy-disk"></i>
-                            <h1>Simpan</h1>
-                        </button>
-                        <button type="reset" class="flex items-center text-white space-x-2 px-4 py-2 bg-cyan-400 rounded-md">
-                            <i class="fa-solid fa-rotate"></i>
-                            <h1>Reset</h1>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <div class="px-6 pb-6 flex justify-end gap-3">
+                <button type="reset" class="btn-secondary"><i class="fas fa-rotate"></i> Reset</button>
+                <button type="submit" class="btn-primary"><i class="fas fa-floppy-disk"></i> Simpan</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
