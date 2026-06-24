@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Http\Middleware\LoginThrottle;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,24 +30,6 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $ip = $request->ip();
-
-        // Check if IP is blocked
-        if (LoginThrottle::isBlocked($ip)) {
-            $remainingTime = LoginThrottle::getRemainingBlockTime($ip);
-
-            Log::warning('Blocked IP attempted login', [
-                'ip' => $ip,
-                'remaining_minutes' => $remainingTime,
-                'timestamp' => now(),
-            ]);
-
-            return response()->view('errors.blocked', [
-                'minutes' => $remainingTime,
-                'ip' => $ip
-            ], 429);
-        }
-
         // Additional validation for login format
         $request->validateLogin();
 
@@ -70,10 +51,8 @@ class AuthController extends Controller
         $isActive = false;
         $passwordCorrect = false;
 
-        // Check if user exists
-        if (!$user) {
-            $errors['login'] = 'Email atau username tidak ditemukan';
-        } else {
+        // Check user existence and credentials
+        if ($user) {
             $userExists = true;
 
             // Check if account is active
@@ -89,63 +68,34 @@ class AuthController extends Controller
 
                 // Check password
                 if (!Hash::check($password, $user->password)) {
-                    $errors['password'] = 'Password salah';
+                    $errors['login'] = 'Email/username atau password salah.';
                 } else {
                     $passwordCorrect = true;
                 }
             }
+        } else {
+            // Generic error for username/email not found
+            $errors['login'] = 'Email/username atau password salah.';
         }
 
-        // Handle error scenarios
-        if (!$userExists) {
-            // User doesn't exist - show errors on both fields for security
-            $errors['login'] = 'Email atau username tidak ditemukan';
-            $errors['password'] = 'Password salah';
-        } else if ($userExists && !$isActive) {
-            // User exists but inactive - still check password to show both errors if needed
-            if (!Hash::check($password, $user->password)) {
-                $errors['password'] = 'Password salah';
-            }
-        }
-
-        // If there are errors, record failed attempt and throw validation exception
+        // If there are errors, throw validation exception
         if (!empty($errors)) {
-            // Record failed login attempt for throttling
-            LoginThrottle::recordFailedAttempt($ip);
-
-            $remainingAttempts = LoginThrottle::getRemainingAttempts($ip);
-
-            // Log failed login attempt with remaining attempts info
+            // Log failed login attempt
             Log::info('Failed login attempt', [
-                'ip' => $ip,
+                'ip' => $request->ip(),
                 'login_field' => $loginField,
                 'user_exists' => $userExists,
                 'is_active' => $isActive,
                 'password_correct' => $passwordCorrect,
-                'remaining_attempts' => $remainingAttempts,
                 'user_agent' => $request->userAgent(),
                 'timestamp' => now(),
             ]);
-
-            // Add warning message if attempts are running low
-            if ($remainingAttempts <= 2 && $remainingAttempts > 0) {
-                $errors['warning'] = "Peringatan: Tersisa {$remainingAttempts} percobaan lagi. IP akan diblokir selama 15 menit jika gagal terus.";
-            } elseif ($remainingAttempts === 0) {
-                // This should trigger the block, but just in case
-                return response()->view('errors.blocked', [
-                    'minutes' => LoginThrottle::BLOCK_DURATION,
-                    'ip' => $ip
-                ], 429);
-            }
 
             throw ValidationException::withMessages($errors);
         }
 
         // Attempt login
         if (Auth::attempt($credentials)) {
-            // Clear failed attempts on successful login
-            LoginThrottle::clearFailedAttempts($ip);
-
             // Regenerate session for security
             $request->session()->regenerate();
 
@@ -154,7 +104,7 @@ class AuthController extends Controller
                 'user_id' => Auth::id(),
                 'email' => Auth::user()->email,
                 'username' => Auth::user()->username,
-                'ip' => $ip,
+                'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
                 'timestamp' => now(),
             ]);
@@ -163,12 +113,9 @@ class AuthController extends Controller
         }
 
         // Fallback error - this should rarely happen due to our checks above
-        LoginThrottle::recordFailedAttempt($ip);
-
         Log::error('Unexpected login failure', [
-            'ip' => $ip,
+            'ip' => $request->ip(),
             'login_field' => $loginField,
-            'remaining_attempts' => LoginThrottle::getRemainingAttempts($ip),
             'user_agent' => $request->userAgent(),
             'timestamp' => now(),
         ]);
