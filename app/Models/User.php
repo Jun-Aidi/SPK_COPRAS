@@ -30,8 +30,6 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
-        'verification_token',
-        'verification_expiry',
         'reset_pass_token',
         'reset_pass_token_expiry',
     ];
@@ -44,7 +42,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'verification_token',
         'reset_pass_token',
     ];
 
@@ -56,9 +53,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'verification_expiry' => 'datetime',
             'reset_pass_token_expiry' => 'datetime',
         ];
     }
@@ -77,18 +72,6 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
-    }
-
-    /**
-     * Check if verification token is valid and not expired.
-     */
-    public function isVerificationTokenValid(): bool
-    {
-        if (!$this->verification_token || !$this->verification_expiry) {
-            return false;
-        }
-
-        return now()->lessThan($this->verification_expiry);
     }
 
     /**

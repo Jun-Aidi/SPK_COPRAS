@@ -1,37 +1,24 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# SPK COPRAS — Sistem Pendukung Keputusan
 
-## About Copras
+Sistem Pendukung Keputusan berbasis web menggunakan metode **COPRAS** (COmplex PRoportional Assessment), dibangun dengan Laravel 12.
 
-Metode COmplex PRoportional Assessment COPRAS diperkenalkan oleh Zavadskas pada tahun 1994 (Zavadskas et al., 1994) biasanya diterapkan dalam keadaan di mana pembuat keputusan dipaksa untuk memilih di antara banyak alternatif sambil mempertimbangkan serangkaian kriteria yang biasanya saling bertentangan
+---
 
-Gagasan COPRAS dipelopori oleh Zavadskas et al. untuk memecahkan masalah MCDA secara efektif. Hasil utama dari pendekatan COPRAS adalah sebagai berikut: (1) penerapannya sederhana; (2) mempertimbangkan rasio terhadap opsi dan solusi ideal, pada saat yang sama; dan (3) mengembalikan hasilnya dalam waktu singkat. (Mardani et al., 2023)
+## Tentang Metode COPRAS
 
-Metode COmplex PRoportional Assessment (COPRAS) menggunakan peringkat bertahap dan mengevaluasi prosedur alternatif dalam hal signifikansi dan tingkat utilitas. Metode COPRAS memiliki kemampuan untuk memperhitungkan kriteria positif (menguntungkan) dan negatif (tidak menguntungkan), yang dapat dinilai secara terpisah dalam proses evaluasi (Makhesana, 2015). Metode ini lebih unggul dari metode lain karena metode ini dapat digunakan untuk menghitung tingkat utilitas alternatif yang menunjukkan sejauh mana satu alternatif lebih baik atau lebih buruk dari pada alternatif lain yang diambil untuk perbandingan. ( Aan et al, 2017)
+Metode COPRAS diperkenalkan oleh Zavadskas pada tahun 1994. Metode ini biasanya diterapkan dalam keadaan di mana pembuat keputusan dipaksa untuk memilih di antara banyak alternatif sambil mempertimbangkan serangkaian kriteria yang biasanya saling bertentangan.
 
-### Decision Support System with COPRAS Method
+Metode COPRAS memiliki kemampuan untuk memperhitungkan kriteria positif (**Benefit** — semakin tinggi semakin baik) dan negatif (**Cost** — semakin rendah semakin baik), yang dapat dinilai secara terpisah dalam proses evaluasi.
 
-This application is an advanced Decision Support System (DSS) designed to facilitate complex decision-making processes in semi-structured environments. It leverages the powerful **Complex Proportional Assessment (COPRAS)** methodology to provide robust, data-driven recommendations.
+Keunggulan utama metode COPRAS:
+- Penerapannya sederhana dan sistematis
+- Mempertimbangkan rasio terhadap opsi dan solusi ideal secara bersamaan
+- Menghasilkan peringkat alternatif berdasarkan **tingkat utilitas** (degree of utility)
+- Mengembalikan hasil dalam waktu singkat
 
-### What makes COPRAS powerful?
+---
 
-The COPRAS method excels at handling multi-criteria decision problems where both beneficial criteria (higher values are better) and cost criteria (lower values are better) must be considered simultaneously. This sophisticated approach:
-
--   Evaluates alternatives against multiple weighted criteria
--   Handles contradictory criteria effectively
--   Considers both maximizing and minimizing parameters
--   Determines proportional direct and transitive dependencies
--   Calculates utility degrees of alternatives with mathematical precision
--   Produces a clear ranking of options based on comprehensive analysis
-
-COPRAS delivers superior results compared to simpler decision methods by balancing positive and negative ideal solutions, making it ideal for complex organizational decision-making processes that require systematic evaluation of multiple factors.
-
-## Project Structure
+## Struktur Proyek
 
 ```
 app/
@@ -42,9 +29,6 @@ app/
 │   ├── SubKriteria.php
 │   ├── Alternatif.php
 │   └── NilaiAlternatif.php
-│
-├── Services/
-│   └── CoprasService.php
 │
 ├── Http/
 │   ├── Controllers/
@@ -59,97 +43,66 @@ app/
 │   │   ├── HasilAkhirController.php
 │   │   ├── UserController.php
 │   │   ├── ProfileController.php
-│   │   ├── ResetPasswordController.php
-│   │   ├── VerificationController.php
-│   │   └── ForgotPasswordController.php
+│   │   ├── ForgotPasswordController.php
+│   │   └── ResetPasswordController.php
 │   │
 │   ├── Middleware/
 │   │   ├── IsAdmin.php
-│   │   ├── IsUser.php
-│   │   ├── AppFirewall.php
-│   │   ├── ContentSecurityPolicy.php
-│   │   ├── SanitizeInput.php
+│   │   └── IsUser.php
 │   │
-│   ├── Request/
-│   │   ├── LoginRequest.php
-│   │   ├── RegisterRequest.php
-│   │   ├── ForgotPasswordRequest.php
-│   │   ├── ResendVerificationRequest.php
-│   │   └── ResetPasswordRequest.php
-│   │
+│   └── Requests/
+│       ├── LoginRequest.php
+│       ├── RegisterRequest.php
+│       ├── ForgotPasswordRequest.php
+│       └── ResetPasswordRequest.php
+│
 database/
 ├── migrations/
-│   ├── 2024_XX_create_users_table.php
-│   ├── 2024_XX_create_kriteria_table.php
-│   ├── 2024_XX_create_sub_kriteria_table.php
-│   ├── 2024_XX_create_alternatif_table.php
-│   ├── 2024_XX_create_nilai_alternatif_table.php
+│   ├── 0001_01_01_000000_create_users_table.php
+│   ├── 0001_01_01_000001_create_cache_table.php
+│   ├── 0001_01_01_000002_create_jobs_table.php
+│   ├── 2025_05_17_031620_create_kriterias_table.php
+│   ├── 2025_05_17_031629_create_sub_kriterias_table.php
+│   ├── 2025_05_17_031637_create_alternatifs_table.php
+│   ├── 2025_05_17_031646_create_nilai_alternatifs_table.php
+│   └── 2026_06_24_145233_remove_verification_columns_from_users_table.php
 │
-├── seeders/
-│   ├── DatabaseSeeder.php
-│   ├── KriteriaSeeder.php
-│   ├── SubKriteriaSeeder.php
-│   ├── AlternatifSeeder.php
-│   ├── NilaiAlternatifSeeder.php
-│   └── UserSeeder.php
-│
+└── seeders/
+    ├── DatabaseSeeder.php
+    ├── KriteriaSeeder.php
+    ├── SubKriteriaSeeder.php
+    ├── AlternatifSeeder.php
+    ├── NilaiAlternatifSeeder.php
+    └── UserSeeder.php
+
 resources/
-├── views/
-│   ├── auth/
-│   │   ├── login.blade.php
-│   │   ├── register.blade.php
-│   │   ├── forgot_password.blade.php
-│   │   ├── reset_password.blade.php
-│   │   ├── resend_verification.blade.php
-│   │   ├── email_verification.blade.php
-│   │   ├── reset_password_email.blade.php
-│   │   └── verify.blade.php
-│   ├── dashboard/
-│   │   ├── index.blade.php
-│   ├── layouts/
-│   │   └── app.blade.php
-│   ├── kriteria/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── subkriteria/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── alternatif/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── penilaian/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── perhitungan/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── hasilakhir/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   ├── user/
-│   │   ├── index.blade.php
-│   │   ├── create.blade.php
-│   │   └── edit.blade.php
-│   └── profile/
-│       ├── index.blade.php
-│       ├── create.blade.php
-│       └── edit.blade.php
-│
-tests/
-├── Feature/
-│   └── SanitizeInputTest.php
-│
+└── views/
+    ├── auth/
+    │   ├── login.blade.php
+    │   ├── register.blade.php
+    │   ├── forgot_password.blade.php
+    │   ├── reset_password.blade.php
+    │   └── reset_password_email.blade.php
+    ├── dashboard/
+    │   └── index.blade.php
+    ├── layouts/
+    │   └── app.blade.php
+    ├── kriteria/
+    ├── subkriteria/
+    ├── alternatif/
+    ├── penilaian/
+    ├── perhitungan/
+    ├── hasilakhir/
+    ├── user/
+    └── profile/
+
 routes/
 └── web.php
 ```
 
-## Database Structure
+---
+
+## Struktur Database
 
 ```sql
 CREATE TABLE kriteria (
@@ -157,7 +110,7 @@ CREATE TABLE kriteria (
     kode_kriteria VARCHAR(10),
     nama_kriteria VARCHAR(100) NOT NULL,
     jenis VARCHAR(10) CHECK (jenis IN ('Benefit', 'Cost')),
-    bobot DECIMAL(5,2) -- persen, misal: 20.00
+    bobot DECIMAL(5,2)
 );
 
 CREATE TABLE sub_kriteria (
@@ -189,13 +142,9 @@ CREATE TABLE users (
     nama_lengkap VARCHAR(100) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    email_verified_at TIMESTAMP NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'user') DEFAULT 'user',
     status ENUM('Active', 'Inactive') DEFAULT 'Inactive',
-    
-    verification_token VARCHAR(64), -- sesuai migration
-    verification_expiry TIMESTAMP NULL,
 
     reset_pass_token VARCHAR(64),
     reset_pass_token_expiry TIMESTAMP NULL,
@@ -206,115 +155,120 @@ CREATE TABLE users (
 
     INDEX idx_email_status (email, status),
     INDEX idx_username_status (username, status),
-    INDEX idx_verification_token (verification_token),
     INDEX idx_reset_pass_token (reset_pass_token)
 );
-
 ```
 
-## Installation Guide
+---
 
-1. Go to the htdocs folder
-   Open C:\xampp\htdocs using File Explorer or a terminal.
+## Panduan Instalasi
 
-2. Open Command Prompt (CMD) in the htdocs folder, then clone the Laravel repository:
+### Prasyarat
+- PHP 8.3+
+- MySQL 8.x
+- Composer
+- Laragon / XAMPP
 
-    ```
-    git clone https://github.com/MuhammadIlhamFahrezi/SPK_COPRAS.git
-    ```
+### Langkah-langkah
 
-3. Navigate to the Laravel project directory:
+1. **Clone repositori** ke folder web server Anda (misal `C:\laragon\www\`):
+   ```bash
+   git clone https://github.com/MuhammadIlhamFahrezi/SPK_COPRAS.git
+   cd SPK_COPRAS
+   ```
 
-    ```
-    cd SPK_COPRAS
-    ```
+2. **Install dependencies**:
+   ```bash
+   composer install
+   ```
 
-4. Install Laravel dependencies using Composer:
+3. **Salin file konfigurasi** dan sesuaikan:
+   ```bash
+   cp .env.example .env
+   ```
 
-    ```
-    composer install
-    ```
+4. **Edit `.env`** sesuai konfigurasi database Anda:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=Copras_V1
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-5. Copy .env.example to .env:
+5. **Generate application key**:
+   ```bash
+   php artisan key:generate
+   ```
 
-    ```
-    cp .env.example .env
-    ```
+6. **Jalankan migration dan seeder**:
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-6. Edit your .env file to match your database configuration:
+7. **Jalankan aplikasi**:
+   ```bash
+   php artisan serve
+   ```
 
-    ```
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=Copras_V1
-    DB_USERNAME=root
-    DB_PASSWORD=
+8. Buka browser dan akses:
+   ```
+   http://127.0.0.1:8000
+   ```
 
-    MAIL_MAILER=smtp
-    MAIL_HOST=smtp.gmail.com
-    MAIL_PORT=587
-    MAIL_USERNAME=isi
-    MAIL_PASSWORD=isi
-    MAIL_ENCRYPTION=tls
-    MAIL_FROM_ADDRESS=copras.app@gmail.com
-    MAIL_FROM_NAME="Copras"
-    ```
+### Perintah Tambahan
 
-7. Generate the application key:
+Reset dan isi ulang database:
+```bash
+php artisan migrate:refresh
+php artisan db:seed
+```
 
-    ```
-    php artisan key:generate
-    ```
+Jalankan seeder tertentu saja:
+```bash
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=AlternatifSeeder
+```
 
-8. Run the following commands:
+---
 
-    ```
-    php artisan migrate
-    php artisan db:seed
-    ```
+## Informasi Login
 
-9. If you need to update the data:
+Akun default tersedia di [`database/seeders/UserSeeder.php`](database/seeders/UserSeeder.php).
 
-    ```
-    php artisan migrate:refresh
-    php artisan db:seed
-    ```
+| Nama | Username | Role |
+|---|---|---|
+| Ilham Fahrezi | rezi | admin |
+| Rayner Aditya | rayner | admin |
+| Anjuan Kaisar | anjuan | admin |
+| Pengguna Biasa | user | user |
 
-10. If step 3 fails, manually drop the database and run step 2 again
+> **Catatan:** Pendaftaran akun baru tidak memerlukan verifikasi email. Akun langsung aktif setelah registrasi.
 
-11. To seed a specific seeder class only (e.g., UserSeeder or AlternatifSeeder):
-    ```
-    php artisan db:seed --class=SeederClassName
-    ```
-    Example:
-    ```
-    php artisan db:seed --class=UserSeeder
-    php artisan db:seed --class=AlternatifSeeder
-    ```
-12. Start the application:
-    ```
-    php artisan serve
-    ```
-13. Access the application by visiting:
-    ```
-    http://127.0.0.1:8000
-    ```
-14. Test Santizie XSS, SQL:
-    ```
-    php artisan test --filter SanitizeInputTest
-    ```
+---
 
-## User Login Information
+## Fitur
 
-Login credentials can be found in `Database/Seeder/UserSeeder.php`
+- 🔐 Autentikasi (Login, Register, Lupa Password)
+- 👤 Manajemen Pengguna (Admin)
+- 📋 Manajemen Kriteria & Sub-Kriteria
+- 🏆 Manajemen Alternatif
+- 📊 Input Penilaian
+- 🧮 Perhitungan COPRAS otomatis
+- 📈 Hasil Akhir & Peringkat
 
-## TEAM
+---
+
+## Tim Pengembang
 
 1. M. Ilham Fahrezi
 2. Anjuan Kaisar
 3. Rayner Aditya
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Lisensi
+
+Framework Laravel dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).

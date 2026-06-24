@@ -11,7 +11,6 @@ use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -35,14 +34,6 @@ Route::middleware(['guest'])->group(function () {
     // Registration routes with rate limiting (max 5 attempts per minute)
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register')->middleware('throttle:5,1');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.post')->middleware('throttle:5,1');
-
-    // Email verification routes
-    Route::get('/verify-sent', [RegisterController::class, 'showVerificationSent'])->name('verify.sent');
-    Route::get('/verify-account/{token}', [VerificationController::class, 'verifyAccount'])->name('verify.account');
-
-    // Resend verification routes with rate limiting (max 3 attempts per minute)
-    Route::get('/resend-verification', [VerificationController::class, 'showResendForm'])->name('verification.resend')->middleware('throttle:3,1');
-    Route::post('/resend-verification', [VerificationController::class, 'resendVerification'])->name('verification.resend.post')->middleware('throttle:3,1');
 
     // Password reset routes with rate limiting (max 5 attempts per minute)
     Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request')->middleware('throttle:5,1');

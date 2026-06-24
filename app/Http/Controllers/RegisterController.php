@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Mail\VerifyEmail;
-use App\Http\Requests\RegisterRequest; // Import the Form Request
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -24,51 +21,29 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      */
-    public function register(RegisterRequest $request) // Use RegisterRequest instead of Request
+    public function register(RegisterRequest $request)
     {
-        // Get validated and sanitized data
+        // Get validated data
         $validatedData = $request->validated();
 
-        // Generate verification token
-        $verificationToken = Str::random(64);
-        $verificationExpiry = now()->addHours(24); // Token expires in 24 hours
-
-        $user = User::create([
+        // Create user with Active status directly (no email verification)
+        User::create([
             'nama_lengkap' => $validatedData['nama_lengkap'],
-            'username' => $validatedData['username'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'role' => 'user',
-            'status' => 'Inactive',
-            'verification_token' => $verificationToken,
-            'verification_expiry' => $verificationExpiry,
+            'username'     => $validatedData['username'],
+            'email'        => $validatedData['email'],
+            'password'     => Hash::make($validatedData['password']),
+            'role'         => 'user',
+            'status'       => 'Active',
         ]);
 
-        // Send verification email
-        try {
-            Mail::to($user->email)->send(new VerifyEmail($user, $verificationToken));
+        Log::info('New user registered', [
+            'email'     => $validatedData['email'],
+            'username'  => $validatedData['username'],
+            'timestamp' => now(),
+        ]);
 
-            return redirect()->route('verify.sent')
-                ->with('message', 'Pendaftaran berhasil! Silakan periksa email Anda untuk memverifikasi akun Anda.');
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            Log::error('Failed to send verification email', [
-                'user_id' => $user->id_user,
-                'email' => $user->email,
-                'error' => $e->getMessage()
-            ]);
-
-            // If email fails, we can still let user know registration was successful
-            return redirect()->route('verify.sent')
-                ->with('warning', 'Pendaftaran berhasil! Namun, terjadi masalah saat mengirim email verifikasi. Silakan coba kirim ulang.');
-        }
-    }
-
-    /**
-     * Show verification sent page.
-     */
-    public function showVerificationSent()
-    {
-        return view('auth.verify');
+        return redirect()->route('login')
+            ->with('success', 'Pendaftaran berhasil! Silakan login dengan akun Anda.');
     }
 }
+

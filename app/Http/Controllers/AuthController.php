@@ -57,12 +57,7 @@ class AuthController extends Controller
 
             // Check if account is active
             if (!$user->isActive()) {
-                // Store user email/username in session for resend verification
-                $request->session()->put('unverified_user', $loginField);
-
-                // Create error message with resend verification link
-                $resendUrl = route('verification.resend');
-                $errors['login'] = 'Akun Anda belum diaktivasi. <a href="' . $resendUrl . '" class="text-[#007BFF] hover:text-[#0000EE] underline font-semibold">Kirim ulang email verifikasi</a>';
+                $errors['login'] = 'Akun Anda tidak aktif. Silakan hubungi administrator.';
             } else {
                 $isActive = true;
 
