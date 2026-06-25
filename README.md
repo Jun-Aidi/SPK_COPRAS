@@ -251,7 +251,7 @@ Akun default tersedia di [`database/seeders/UserSeeder.php`](database/seeders/Us
 
 ## Fitur
 
-- 🔐 Autentikasi (Login, Register, Lupa Password)
+- 🔐 Autentikasi (Login, Register)
 - 👤 Manajemen Pengguna (Admin)
 - 📋 Manajemen Kriteria & Sub-Kriteria
 - 🏆 Manajemen Alternatif
