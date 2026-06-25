@@ -140,8 +140,8 @@
             </div>
 
             {{-- Heading --}}
-            <h1 class="text-3xl font-black mb-1" style="color:var(--navy);">Welcome Back!</h1>
-            <p class="text-sm mb-7" style="color:var(--muted);">Please log in to your account.</p>
+            <h1 class="text-3xl font-black mb-1" style="color:var(--navy);">Selamat Datang Kembali!</h1>
+            <p class="text-sm mb-7" style="color:var(--muted);">Silakan masuk ke akun Anda.</p>
 
             {{-- Flash Messages --}}
             @if(session('success'))
@@ -165,7 +165,7 @@
 
                 {{-- Email / Username --}}
                 <div>
-                    <label class="form-label" for="login">EMAIL ADDRESS</label>
+                    <label class="form-label" for="login">ALAMAT EMAIL</label>
                     <div class="relative">
                         <input id="login" type="text" name="login"
                                value="{{ old('login') }}"
@@ -181,7 +181,7 @@
 
                 {{-- Password --}}
                 <div>
-                    <label class="form-label" for="password">PASSWORD</label>
+                    <label class="form-label" for="password">KATA SANDI</label>
                     <div class="relative">
                         <input id="password" type="password" name="password"
                                class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
@@ -197,28 +197,27 @@
                     @enderror
                 </div>
 
-                {{-- Remember + Forgot --}}
+                {{-- Remember --}}
                 <div class="flex items-center justify-between pt-1">
                     <label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--muted);">
                         <input type="checkbox" name="remember" class="w-3.5 h-3.5 accent-teal-500">
-                        Remember me
+                        Ingat saya
                     </label>
-                    <a href="#" class="text-xs font-bold" style="color:#EF4444;">Forgot password?</a>
                 </div>
 
                 {{-- Buttons --}}
                 <div class="flex gap-3 pt-1">
                     <button type="submit" id="btn-login" class="btn-primary flex-1">
-                        Login
+                        Masuk
                     </button>
                     <a href="{{ route('register') }}" class="btn-secondary flex-1">
-                        Create account
+                        Buat akun
                     </a>
                 </div>
             </form>
 
             <p class="mt-6 text-xs leading-relaxed" style="color:#B0BEC5;">
-                By signing in you agree to our <a href="#" style="color:var(--teal);">terms</a> and that you have read our <a href="#" style="color:var(--teal);">data policy</a>.
+                Dengan masuk, Anda menyetujui <a href="#" style="color:var(--teal);">syarat & ketentuan</a> dan telah membaca <a href="#" style="color:var(--teal);">kebijakan privasi</a> kami.
             </p>
         </div>
 

@@ -144,8 +144,8 @@
             </div>
 
             {{-- Heading --}}
-            <h1 class="text-2xl font-black mb-1" style="color:var(--navy);">Create Account</h1>
-            <p class="text-sm mb-5" style="color:var(--muted);">Fill in the form below to register.</p>
+            <h1 class="text-2xl font-black mb-1" style="color:var(--navy);">Buat Akun Baru</h1>
+            <p class="text-sm mb-5" style="color:var(--muted);">Isi formulir di bawah untuk mendaftar.</p>
 
             {{-- ── Kriteria Box ── --}}
             <div class="rounded-xl px-4 py-3 mb-5" style="background:#EFF8FF; border:1px solid rgba(39,142,165,0.25);">
@@ -217,7 +217,7 @@
 
                     {{-- Email (full width) --}}
                     <div class="md:col-span-2">
-                        <label class="form-label" for="email">EMAIL ADDRESS</label>
+                        <label class="form-label" for="email">ALAMAT EMAIL</label>
                         <input id="email" type="email" name="email"
                                value="{{ old('email') }}"
                                class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}"
@@ -231,7 +231,7 @@
 
                     {{-- Password --}}
                     <div>
-                        <label class="form-label" for="password">PASSWORD</label>
+                        <label class="form-label" for="password">KATA SANDI</label>
                         <div class="relative">
                             <input id="password" type="password" name="password"
                                    class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
@@ -279,7 +279,7 @@
                         <i class="fas fa-user-plus"></i> Daftar Sekarang
                     </button>
                     <a href="{{ route('login') }}" class="btn-secondary flex-1">
-                        Sudah Punya Akun?
+                        Masuk
                     </a>
                 </div>
 
