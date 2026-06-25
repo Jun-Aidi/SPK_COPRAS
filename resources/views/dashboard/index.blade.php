@@ -126,7 +126,7 @@
         </a>
     </div>
 
-    {{-- Seeder Section (Admin Only) --}}
+    {{-- Seeder & Clear Data Section (Admin Only) --}}
     <div class="content-card p-6" style="border-top:3px solid #F59E0B;">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <div class="flex items-center gap-4">
@@ -135,16 +135,24 @@
                 </div>
                 <div>
                     <p class="text-xs font-bold mb-0.5" style="color:#94A3B8; letter-spacing:0.06em;">UTILITAS DATABASE</p>
-                    <h2 class="text-base font-black" style="color:#071E3D;">Jalankan Semua Seeder</h2>
-                    <p class="text-xs mt-0.5" style="color:#64748B;">Memasukkan seluruh data awal (User, Kriteria, Sub Kriteria, Alternatif, Nilai) ke database.</p>
+                    <h2 class="text-base font-black" style="color:#071E3D;">Manajemen Data</h2>
+                    <p class="text-xs mt-0.5" style="color:#64748B;">Jalankan seeder data (Kriteria, Sub Kriteria, Alternatif, Nilai) atau hapus semua data kecuali user.</p>
                 </div>
             </div>
-            <button type="button" id="openSeederModal"
-                style="background:linear-gradient(135deg,#F59E0B,#D97706); color:#fff; border:none; padding:10px 22px; border-radius:10px; font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.2s;"
-                onmouseover="this.style.opacity='0.88'; this.style.transform='translateY(-1px)';"
-                onmouseout="this.style.opacity='1'; this.style.transform='';">
-                <i class="fas fa-play-circle"></i> Jalankan Seeder
-            </button>
+            <div class="flex items-center gap-3 flex-wrap">
+                <button type="button" id="openClearModal"
+                    style="background:linear-gradient(135deg,#EF4444,#DC2626); color:#fff; border:none; padding:10px 22px; border-radius:10px; font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.2s;"
+                    onmouseover="this.style.opacity='0.88'; this.style.transform='translateY(-1px)';"
+                    onmouseout="this.style.opacity='1'; this.style.transform='';">
+                    <i class="fas fa-trash-can"></i> Hapus Data
+                </button>
+                <button type="button" id="openSeederModal"
+                    style="background:linear-gradient(135deg,#F59E0B,#D97706); color:#fff; border:none; padding:10px 22px; border-radius:10px; font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.2s;"
+                    onmouseover="this.style.opacity='0.88'; this.style.transform='translateY(-1px)';"
+                    onmouseout="this.style.opacity='1'; this.style.transform='';">
+                    <i class="fas fa-play-circle"></i> Jalankan Seeder
+                </button>
+            </div>
         </div>
     </div>
 
@@ -189,13 +197,12 @@
             </div>
             <div>
                 <h3 class="font-black text-base" style="color:#071E3D;">Konfirmasi Jalankan Seeder</h3>
-                <p class="text-xs" style="color:#64748B;">Tindakan ini akan menambah/mengganti data di database.</p>
+                <p class="text-xs" style="color:#64748B;">Tindakan ini akan menambah/mengganti data di database. Data user tidak akan diubah.</p>
             </div>
         </div>
         <p class="text-sm mb-5" style="color:#475569; line-height:1.6;">
             Seeder yang akan dijalankan:
             <ul class="mt-2 space-y-1" style="padding-left:1.25rem; list-style:disc;">
-                <li>UserSeeder</li>
                 <li>KriteriaSeeder</li>
                 <li>SubKriteriaSeeder</li>
                 <li>AlternatifSeeder</li>
@@ -220,6 +227,48 @@
     </div>
 </div>
 
+{{-- Clear Data Confirmation Modal --}}
+<div id="clearModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.45); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+    <div class="content-card" style="width:100%; max-width:430px; padding:2rem; position:relative; animation: fadeInUp 0.25s ease;">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(239,68,68,0.12); flex-shrink:0;">
+                <i class="fas fa-trash-can text-xl" style="color:#EF4444;"></i>
+            </div>
+            <div>
+                <h3 class="font-black text-base" style="color:#071E3D;">Konfirmasi Hapus Data</h3>
+                <p class="text-xs" style="color:#64748B;">Tindakan ini <strong>tidak dapat dibatalkan</strong>. Data user tetap aman.</p>
+            </div>
+        </div>
+        <p class="text-sm mb-2" style="color:#475569; line-height:1.6;">
+            Data yang akan <strong style="color:#EF4444;">dihapus</strong>:
+            <ul class="mt-2 space-y-1" style="padding-left:1.25rem; list-style:disc;">
+                <li>Nilai Alternatif</li>
+                <li>Alternatif</li>
+                <li>Sub Kriteria</li>
+                <li>Kriteria</li>
+            </ul>
+        </p>
+        <p class="text-sm mb-5 px-3 py-2 rounded-lg" style="color:#991B1B; background:#FEF2F2; border:1px solid rgba(239,68,68,0.2);">
+            <i class="fas fa-shield-halved mr-1"></i> Data <strong>User tidak akan dihapus</strong>.
+        </p>
+        <div class="flex gap-3 justify-end">
+            <button type="button" id="closeClearModal"
+                style="background:#F1F5F9; color:#475569; border:none; padding:9px 20px; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer;"
+                onmouseover="this.style.background='#E2E8F0';" onmouseout="this.style.background='#F1F5F9';">
+                Batal
+            </button>
+            <form action="{{ route('seeder.clear') }}" method="POST" style="margin:0;">
+                @csrf
+                <button type="submit" id="confirmClearBtn"
+                    style="background:linear-gradient(135deg,#EF4444,#DC2626); color:#fff; border:none; padding:9px 22px; border-radius:8px; font-size:0.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px;"
+                    onmouseover="this.style.opacity='0.88';" onmouseout="this.style.opacity='1';">
+                    <i class="fas fa-trash-can"></i> Ya, Hapus Data
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <style>
 @keyframes fadeInUp {
     from { opacity:0; transform:translateY(16px); }
@@ -229,24 +278,23 @@
 
 <script>
 (function() {
-    var modal   = document.getElementById('seederModal');
-    var openBtn = document.getElementById('openSeederModal');
-    var closeBtn= document.getElementById('closeSeederModal');
+    // Seeder modal
+    var seederModal  = document.getElementById('seederModal');
+    var openSeeder   = document.getElementById('openSeederModal');
+    var closeSeeder  = document.getElementById('closeSeederModal');
 
-    if (openBtn) {
-        openBtn.addEventListener('click', function() {
-            modal.style.display = 'flex';
-        });
-    }
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-    }
-    // Close on backdrop click
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) modal.style.display = 'none';
-    });
+    if (openSeeder) openSeeder.addEventListener('click', function() { seederModal.style.display = 'flex'; });
+    if (closeSeeder) closeSeeder.addEventListener('click', function() { seederModal.style.display = 'none'; });
+    seederModal.addEventListener('click', function(e) { if (e.target === seederModal) seederModal.style.display = 'none'; });
+
+    // Clear data modal
+    var clearModal  = document.getElementById('clearModal');
+    var openClear   = document.getElementById('openClearModal');
+    var closeClear  = document.getElementById('closeClearModal');
+
+    if (openClear) openClear.addEventListener('click', function() { clearModal.style.display = 'flex'; });
+    if (closeClear) closeClear.addEventListener('click', function() { clearModal.style.display = 'none'; });
+    clearModal.addEventListener('click', function(e) { if (e.target === clearModal) clearModal.style.display = 'none'; });
 })();
 </script>
 @endif

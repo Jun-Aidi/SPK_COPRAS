@@ -57,8 +57,9 @@ Route::middleware(['auth.user'])->group(function () {
 
         Route::resource('user', UserController::class);
 
-        // Seeder route
+        // Seeder routes
         Route::post('/seeder/run', [SeederController::class, 'run'])->name('seeder.run');
+        Route::post('/seeder/clear', [SeederController::class, 'clearData'])->name('seeder.clear');
     });
 
     // Common authenticated routes
