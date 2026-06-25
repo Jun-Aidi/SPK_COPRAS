@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 <div class="space-y-5">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="page-title"><i class="fas fa-pen-to-square mr-2" style="color:#21E6C1;"></i>Data Penilaian</h1>
+            <h1 class="page-title"><i class="fas fa-pen-to-square mr-2" style="color:#278EA5;"></i>Data Penilaian</h1>
             <p class="page-subtitle">Edit penilaian untuk {{ $alternatif->nama_alternatif }}</p>
         </div>
         <a href="{{ route('penilaian.index') }}" class="btn-secondary">
@@ -12,9 +12,9 @@
     </div>
 
     <div class="content-card overflow-hidden">
-        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <i class="fas fa-pen-to-square" style="color:#21E6C1;"></i>
-            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Edit Penilaian: {{ $alternatif->nama_alternatif }}</h2>
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+            <i class="fas fa-pen-to-square" style="color:#278EA5;"></i>
+            <h2 class="font-bold" style="color:#1E293B;">Edit Penilaian: {{ $alternatif->nama_alternatif }}</h2>
         </div>
         <form action="{{ route('penilaian.update') }}" method="POST">
             @csrf @method('PUT')

@@ -1,21 +1,21 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 <div class="space-y-5">
     <div>
-        <h1 class="page-title"><i class="fas fa-chart-line mr-2" style="color:#21E6C1;"></i>Data Hasil Akhir</h1>
+        <h1 class="page-title"><i class="fas fa-chart-line mr-2" style="color:#278EA5;"></i>Data Hasil Akhir</h1>
         <p class="page-subtitle">Hasil perangkingan metode COPRAS</p>
     </div>
 
     @if($kriterias->isEmpty() || $alternatifs->isEmpty())
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
-        <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Kriteria atau Alternatif masih kosong. Silahkan tambahkan data terlebih dahulu.</p>
+        <p class="text-sm font-semibold" style="color:#374151;">Data Kriteria atau Alternatif masih kosong. Silahkan tambahkan data terlebih dahulu.</p>
     </div>
     @else
     <div class="content-card overflow-hidden">
-        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <i class="fas fa-trophy" style="color:#21E6C1;"></i>
-            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Hasil Akhir Perangkingan</h2>
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+            <i class="fas fa-trophy" style="color:#278EA5;"></i>
+            <h2 class="font-bold" style="color:#1E293B;">Hasil Akhir Perangkingan</h2>
         </div>
         <div class="px-6 py-4" style="overflow-x:auto;">
             <table class="tbl text-center">

@@ -1,15 +1,15 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 <div class="space-y-5">
     <div>
-        <h1 class="page-title"><i class="fas fa-user mr-2" style="color:#21E6C1;"></i>Data Profile</h1>
+        <h1 class="page-title"><i class="fas fa-user mr-2" style="color:#278EA5;"></i>Data Profile</h1>
         <p class="page-subtitle">Kelola informasi akun Anda</p>
     </div>
 
     <div class="content-card overflow-hidden">
-        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <i class="fas fa-pen-to-square" style="color:#21E6C1;"></i>
-            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Edit Data Profile</h2>
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+            <i class="fas fa-pen-to-square" style="color:#278EA5;"></i>
+            <h2 class="font-bold" style="color:#1E293B;">Edit Data Profile</h2>
         </div>
 
         <form method="POST" action="{{ route('profile.update') }}">
@@ -34,7 +34,7 @@
                 </div>
 
                 <div style="border-top:1px solid rgba(33,230,193,0.1); padding-top:20px; margin-top:4px;">
-                    <p class="text-xs font-bold mb-4" style="color:rgba(255,255,255,0.4); letter-spacing:0.05em;">UBAH PASSWORD <span style="font-weight:400; opacity:0.6;">(Kosongkan jika tidak ingin mengubah)</span></p>
+                    <p class="text-xs font-bold mb-4" style="color:#64748B; letter-spacing:0.05em;">UBAH PASSWORD <span style="font-weight:400; opacity:0.6;">(Kosongkan jika tidak ingin mengubah)</span></p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="form-label">Password Baru</label>

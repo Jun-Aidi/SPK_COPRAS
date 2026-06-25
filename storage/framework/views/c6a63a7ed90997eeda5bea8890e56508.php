@@ -1,23 +1,24 @@
+﻿
 <?php $__env->startSection('content'); ?>
 <div class="space-y-5">
     <div>
-        <h1 class="page-title"><i class="fas fa-cubes mr-2" style="color:#21E6C1;"></i>Data Sub Kriteria</h1>
+        <h1 class="page-title"><i class="fas fa-cubes mr-2" style="color:#278EA5;"></i>Data Sub Kriteria</h1>
         <p class="page-subtitle">Kelola data sub kriteria untuk setiap kriteria</p>
     </div>
 
     <?php if($kriterias->isEmpty()): ?>
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
-        <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Kriteria masih kosong. Silahkan tambahkan data kriteria terlebih dahulu.</p>
+        <p class="text-sm font-semibold" style="color:#374151;">Data Kriteria masih kosong. Silahkan tambahkan data kriteria terlebih dahulu.</p>
     </div>
     <?php else: ?>
     <div class="space-y-5">
         <?php $__currentLoopData = $kriterias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kriteria): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center justify-between" style="border-bottom:1px solid rgba(33,230,193,0.1);">
+            <div class="px-6 py-4 flex items-center justify-between" style="border-bottom:1px solid #E2E8F0;">
                 <div class="flex items-center gap-2">
-                    <i class="fas fa-table" style="color:#21E6C1;"></i>
-                    <h2 class="font-bold" style="color:rgba(255,255,255,0.8);"><?php echo e($kriteria->nama); ?> <span style="color:rgba(255,255,255,0.4);">(<?php echo e($kriteria->kode); ?>)</span></h2>
+                    <i class="fas fa-table" style="color:#278EA5;"></i>
+                    <h2 class="font-bold" style="color:#1E293B;"><?php echo e($kriteria->nama); ?> <span style="color:#64748B;">(<?php echo e($kriteria->kode); ?>)</span></h2>
                 </div>
                 <a href="<?php echo e(route('subkriteria.create', ['kriteria_id' => $kriteria->id_kriteria])); ?>" class="btn-primary">
                     <i class="fas fa-plus"></i> Tambah Data
@@ -55,7 +56,7 @@
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
-                            <td colspan="4" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">Belum ada data sub kriteria untuk kriteria ini</td>
+                            <td colspan="4" style="color:#94A3B8; font-style:italic; padding:24px;">Belum ada data sub kriteria untuk kriteria ini</td>
                         </tr>
                         <?php endif; ?>
                     </tbody>
@@ -68,13 +69,13 @@
 </div>
 
 <!-- Delete Modal -->
-<div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:rgba(7,30,61,0.75); backdrop-filter:blur(6px);">
-    <div class="max-w-md w-full mx-4" style="background:rgba(7,30,61,0.95); border:1px solid rgba(33,230,193,0.2); border-radius:16px; overflow:hidden;">
-        <div class="px-6 py-5" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <h2 class="font-black text-lg" style="color:#fff;">Konfirmasi Penghapusan</h2>
+<div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:rgba(0,0,0,0.35); backdrop-filter:blur(4px);">
+    <div class="max-w-md w-full mx-4" style="background:#fff; border:1px solid #E2E8F0; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+        <div class="px-6 py-5" style="border-bottom:1px solid #E2E8F0;">
+            <h2 class="font-black text-lg" style="color:#071E3D;">Konfirmasi Penghapusan</h2>
         </div>
         <div class="px-6 py-5">
-            <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.6);">Apakah Anda yakin ingin menghapus sub kriteria <span id="deleteItemName" class="font-black" style="color:#21E6C1;"></span>?</p>
+            <p class="text-sm font-semibold" style="color:#475569;">Apakah Anda yakin ingin menghapus sub kriteria <span id="deleteItemName" class="font-black" style="color:#278EA5;"></span>?</p>
         </div>
         <div class="px-6 pb-5 flex justify-end gap-3">
             <button type="button" onclick="closeDeleteModal()" class="btn-secondary"><i class="fas fa-xmark"></i> Batal</button>

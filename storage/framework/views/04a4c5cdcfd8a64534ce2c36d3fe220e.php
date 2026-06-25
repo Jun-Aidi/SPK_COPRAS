@@ -15,23 +15,27 @@
             --blue:    #1F4287;
             --teal:    #278EA5;
             --cyan:    #21E6C1;
+            --bg:      #F0F4F8;
+            --surface: #FFFFFF;
+            --border:  #E2E8F0;
+            --text:    #1E293B;
+            --muted:   #64748B;
         }
 
         * { font-family: 'Montserrat', sans-serif; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 60%, var(--teal) 100%);
-            background-attachment: fixed;
+            background: var(--bg);
         }
 
         /* ── Sidebar ── */
         .sidebar {
-            width: 240px;
+            width: 248px;
             flex-shrink: 0;
-            background: rgba(7, 30, 61, 0.75);
-            backdrop-filter: blur(16px);
-            border-right: 1px solid rgba(33, 230, 193, 0.12);
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            box-shadow: 2px 0 12px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -41,8 +45,8 @@
         }
 
         .sidebar-logo {
-            padding: 24px 20px 20px;
-            border-bottom: 1px solid rgba(33, 230, 193, 0.12);
+            padding: 22px 20px 18px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -57,20 +61,20 @@
         .sidebar-logo-text {
             font-weight: 900;
             font-size: 1rem;
-            color: #fff;
+            color: var(--navy);
         }
         .sidebar-logo-text span {
-            background: linear-gradient(135deg, var(--cyan), var(--teal));
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .sidebar-section-label {
-            font-size: 0.65rem;
+            font-size: 0.63rem;
             font-weight: 800;
             letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.3);
+            color: var(--muted);
             padding: 20px 20px 8px;
         }
 
@@ -78,77 +82,75 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 20px;
-            color: rgba(255,255,255,0.55);
+            padding: 10px 16px;
+            color: var(--muted);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             border-radius: 8px;
-            margin: 10px 14px;
-            transition: all 0.2s ease;
+            margin: 5px 10px;
+            transition: all 0.18s ease;
             text-decoration: none;
         }
         .sidebar-item:hover {
-            background: rgba(33, 230, 193, 0.08);
-            color: #fff;
+            background: #EEF9F7;
+            color: var(--teal);
         }
         .sidebar-item.active {
-            background: rgba(33, 230, 193, 0.15);
-            color: var(--cyan);
+            background: linear-gradient(135deg, rgba(39,142,165,0.1), rgba(33,230,193,0.1));
+            color: var(--teal);
             border-left: 3px solid var(--cyan);
-            padding-left: 17px;
+            padding-left: 13px;
+            font-weight: 700;
         }
-        .sidebar-item.active i {
-            color: var(--cyan);
-        }
+        .sidebar-item.active i { color: var(--teal); }
         .sidebar-item i {
             width: 18px;
             text-align: center;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.35);
-            transition: color 0.2s;
+            font-size: 0.88rem;
+            color: #94A3B8;
+            transition: color 0.18s;
         }
-        .sidebar-item:hover i { color: var(--cyan); }
+        .sidebar-item:hover i { color: var(--teal); }
 
         .sidebar-divider {
             border: none;
-            border-top: 1px solid rgba(33, 230, 193, 0.1);
-            margin: 12px 0;
+            border-top: 1px solid var(--border);
+            margin: 10px 0;
         }
 
         .sidebar-logout {
             margin-top: auto;
             padding: 16px 10px;
-            border-top: 1px solid rgba(33, 230, 193, 0.1);
+            border-top: 1px solid var(--border);
         }
         .btn-logout {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 20px;
+            padding: 10px 16px;
             width: 100%;
-            border: none;
-            background: rgba(239, 68, 68, 0.08);
-            color: rgba(255,255,255,0.55);
+            border: 1px solid #FECACA;
+            background: #FFF5F5;
+            color: #EF4444;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.18s;
             text-align: left;
         }
         .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
+            background: #FEE2E2;
+            color: #DC2626;
         }
-        .btn-logout i { width: 18px; text-align: center; color: rgba(239,68,68,0.5); }
-        .btn-logout:hover i { color: #fca5a5; }
+        .btn-logout i { width: 18px; text-align: center; color: #EF4444; }
 
         /* ── Topbar ── */
         .topbar {
-            height: 64px;
-            background: rgba(7, 30, 61, 0.6);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(33, 230, 193, 0.1);
+            height: 60px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -161,26 +163,27 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            padding: 6px 12px 6px 6px;
+            padding: 5px 12px 5px 5px;
             border-radius: 999px;
-            border: 1px solid rgba(33, 230, 193, 0.15);
-            transition: all 0.2s;
+            border: 1px solid var(--border);
+            transition: all 0.18s;
+            background: var(--bg);
         }
         .profile-btn:hover {
-            background: rgba(33, 230, 193, 0.08);
-            border-color: rgba(33, 230, 193, 0.4);
+            border-color: var(--teal);
+            background: #EEF9F7;
         }
         .profile-avatar {
-            width: 34px; height: 34px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--teal), var(--cyan));
             display: flex; align-items: center; justify-content: center;
         }
-        .profile-avatar i { color: var(--navy); font-size: 0.85rem; }
+        .profile-avatar i { color: #fff; font-size: 0.8rem; }
         .profile-username {
-            color: rgba(255,255,255,0.8);
+            color: var(--text);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
         /* Dropdown */
@@ -188,12 +191,11 @@
             position: absolute;
             top: calc(100% + 8px);
             right: 0;
-            background: rgba(7, 30, 61, 0.95);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(33, 230, 193, 0.2);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 12px;
             min-width: 180px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             z-index: 100;
             overflow: hidden;
         }
@@ -201,12 +203,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 16px;
-            color: rgba(255,255,255,0.7);
+            padding: 11px 16px;
+            color: var(--muted);
             font-size: 0.82rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.15s;
             border: none;
             background: none;
             width: 100%;
@@ -214,13 +216,13 @@
             text-align: left;
         }
         .dropdown-item:hover {
-            background: rgba(33, 230, 193, 0.08);
-            color: #fff;
+            background: var(--bg);
+            color: var(--text);
         }
         .dropdown-item i { width: 16px; text-align: center; color: var(--teal); }
-        .dropdown-item.danger:hover { background: rgba(239,68,68,0.1); color: #fca5a5; }
-        .dropdown-item.danger i { color: rgba(239,68,68,0.6); }
-        .dropdown-divider { border-top: 1px solid rgba(33,230,193,0.1); }
+        .dropdown-item.danger:hover { background: #FFF5F5; color: #EF4444; }
+        .dropdown-item.danger i { color: #EF4444; }
+        .dropdown-divider { border-top: 1px solid var(--border); }
 
         /* ── Main content area ── */
         .main-content {
@@ -231,62 +233,63 @@
 
         /* ── Content card (used by pages) ── */
         .content-card {
-            background: rgba(31, 66, 135, 0.2);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(33, 230, 193, 0.12);
-            border-radius: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
         }
 
         /* ── Table styling ── */
         .tbl { width: 100%; border-collapse: collapse; }
         .tbl th {
-            padding: 12px 16px;
-            text-align: left;
-            font-size: 0.75rem;
+            padding: 11px 16px;
+            text-align: center;
+            font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.05em;
-            color: var(--cyan);
-            background: rgba(33, 230, 193, 0.06);
-            border-bottom: 1px solid rgba(33, 230, 193, 0.15);
+            letter-spacing: 0.06em;
+            color: var(--teal);
+            background: #F8FFFE;
+            border-bottom: 2px solid rgba(39,142,165,0.15);
         }
         .tbl td {
-            padding: 12px 16px;
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.8);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 11px 16px;
+            font-size: 0.83rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
         }
-        .tbl tr:hover td { background: rgba(33, 230, 193, 0.04); }
+        .tbl tr:last-child td { border-bottom: none; }
+        .tbl tr:hover td { background: #F8FFFE; }
 
         /* ── Badges ── */
         .badge-active {
             display: inline-block;
-            padding: 2px 10px;
+            padding: 3px 10px;
             border-radius: 999px;
             font-size: 0.72rem;
             font-weight: 700;
-            background: rgba(33,230,193,0.15);
-            color: var(--cyan);
-            border: 1px solid rgba(33,230,193,0.3);
+            background: #ECFDF5;
+            color: #059669;
+            border: 1px solid #A7F3D0;
         }
         .badge-inactive {
             display: inline-block;
-            padding: 2px 10px;
+            padding: 3px 10px;
             border-radius: 999px;
             font-size: 0.72rem;
             font-weight: 700;
-            background: rgba(239,68,68,0.12);
-            color: #fca5a5;
-            border: 1px solid rgba(239,68,68,0.25);
+            background: #FFF5F5;
+            color: #EF4444;
+            border: 1px solid #FECACA;
         }
         .badge-admin {
             display: inline-block;
-            padding: 2px 10px;
+            padding: 3px 10px;
             border-radius: 999px;
             font-size: 0.72rem;
             font-weight: 700;
-            background: rgba(39,142,165,0.15);
+            background: #EFF8FF;
             color: var(--teal);
-            border: 1px solid rgba(39,142,165,0.3);
+            border: 1px solid rgba(39,142,165,0.25);
         }
 
         /* ── Buttons ── */
@@ -299,7 +302,7 @@
             font-weight: 700;
             font-size: 0.82rem;
             background: linear-gradient(135deg, var(--teal), var(--cyan));
-            color: var(--navy);
+            color: #fff;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
@@ -307,7 +310,7 @@
         }
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(33,230,193,0.4);
+            box-shadow: 0 4px 14px rgba(39,142,165,0.35);
         }
         .btn-secondary {
             display: inline-flex;
@@ -317,16 +320,16 @@
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.82rem;
-            background: rgba(39,142,165,0.15);
+            background: #fff;
             color: var(--teal);
-            border: 1px solid rgba(39,142,165,0.3);
+            border: 1px solid rgba(39,142,165,0.35);
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
         }
         .btn-secondary:hover {
-            background: rgba(39,142,165,0.25);
-            color: #fff;
+            background: #EEF9F7;
+            border-color: var(--teal);
         }
         .btn-danger {
             display: inline-flex;
@@ -336,57 +339,57 @@
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.82rem;
-            background: rgba(239,68,68,0.12);
-            color: #fca5a5;
-            border: 1px solid rgba(239,68,68,0.25);
+            background: #FFF5F5;
+            color: #EF4444;
+            border: 1px solid #FECACA;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
         }
         .btn-danger:hover {
-            background: rgba(239,68,68,0.25);
-            color: #fff;
+            background: #FEE2E2;
+            color: #DC2626;
         }
 
         /* ── Form inputs ── */
         .form-input {
             width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(39,142,165,0.3);
+            background: #fff;
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 10px 14px;
-            color: #fff;
+            color: var(--text);
             font-size: 0.85rem;
             font-family: 'Montserrat', sans-serif;
-            transition: all 0.2s;
+            transition: all 0.18s;
             outline: none;
         }
         .form-input:focus {
-            border-color: var(--cyan);
-            background: rgba(33,230,193,0.05);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(39,142,165,0.12);
         }
-        .form-input::placeholder { color: rgba(255,255,255,0.3); }
+        .form-input::placeholder { color: #94A3B8; }
         .form-label {
             display: block;
             font-size: 0.78rem;
             font-weight: 700;
-            color: rgba(255,255,255,0.6);
+            color: var(--text);
             margin-bottom: 6px;
         }
 
         /* ── Section title ── */
         .page-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 900;
-            color: #fff;
+            color: var(--navy);
         }
         .page-subtitle {
             font-size: 0.8rem;
-            color: rgba(255,255,255,0.45);
+            color: var(--muted);
             margin-top: 2px;
         }
         .gradient-text {
-            background: linear-gradient(135deg, var(--cyan), var(--teal));
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -394,18 +397,18 @@
 
         /* ── Alert messages ── */
         .alert-success {
-            background: rgba(33,230,193,0.1);
-            border: 1px solid rgba(33,230,193,0.35);
-            color: var(--cyan);
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #059669;
             border-radius: 10px;
             padding: 12px 16px;
             font-size: 0.82rem;
             font-weight: 600;
         }
         .alert-error {
-            background: rgba(239,68,68,0.1);
-            border: 1px solid rgba(239,68,68,0.35);
-            color: #fca5a5;
+            background: #FFF5F5;
+            border: 1px solid #FECACA;
+            color: #EF4444;
             border-radius: 10px;
             padding: 12px 16px;
             font-size: 0.82rem;
@@ -426,13 +429,13 @@
         .slide-up { animation: slideUp 0.3s ease-out forwards; }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
-        ::-webkit-scrollbar-thumb { background: rgba(33,230,193,0.2); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(33,230,193,0.4); }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--teal); }
 
         /* Select override */
-        select.form-input option { background: #0d2a5c; color: #fff; }
+        select.form-input option { background: #fff; color: var(--text); }
     </style>
 </head>
 
@@ -444,7 +447,7 @@
             <!-- Logo -->
             <div class="sidebar-logo">
                 <div class="sidebar-logo-icon">
-                    <i class="fas fa-database text-sm" style="color:#071E3D;"></i>
+                    <i class="fas fa-database text-sm" style="color:#fff;"></i>
                 </div>
                 <div class="sidebar-logo-text">SPK <span>COPRAS</span></div>
             </div>
@@ -528,7 +531,7 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <span class="profile-username"><?php echo e(auth()->user()->username); ?></span>
-                        <i class="fas fa-chevron-down" style="color:rgba(255,255,255,0.4); font-size:0.7rem;"></i>
+                        <i class="fas fa-chevron-down" style="color:#94A3B8; font-size:0.7rem;"></i>
                     </div>
                     <div class="profile-dropdown hidden" id="profileDropdownContent">
                         <a href="<?php echo e(route('profile.index')); ?>" class="dropdown-item">
@@ -565,28 +568,27 @@
     <!-- ═══════════ LOGOUT MODAL ═══════════ -->
     <div id="logoutConfirmation"
          class="fixed inset-0 hidden items-start justify-center z-50"
-         style="background:rgba(7,30,61,0.75); backdrop-filter:blur(6px);">
+         style="background:rgba(0,0,0,0.35); backdrop-filter:blur(4px);">
         <div class="mt-20 max-w-md w-full mx-4 transform -translate-y-full opacity-0"
-             style="background:rgba(7,30,61,0.95); border:1px solid rgba(33,230,193,0.2); border-radius:16px; overflow:hidden;"
+             style="background:#fff; border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.15);"
              id="logoutPopupBox">
-            <div class="px-6 py-5" style="border-bottom:1px solid rgba(33,230,193,0.1);">
+            <div class="px-6 py-5" style="border-bottom:1px solid var(--border);">
                 <div class="flex justify-between items-center">
-                    <h2 class="font-black text-lg" style="color:#fff;">Konfirmasi Logout</h2>
+                    <h2 class="font-black text-lg" style="color:var(--navy);">Konfirmasi Logout</h2>
                     <button type="button" id="closeLogoutPopup"
-                            style="color:rgba(255,255,255,0.4); background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1;"
-                            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                            style="color:#94A3B8; background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1;"
+                            onmouseover="this.style.color='#1E293B'" onmouseout="this.style.color='#94A3B8'">
                         <i class="fas fa-xmark"></i>
                     </button>
                 </div>
             </div>
             <div class="px-6 py-6">
-                <p style="color:rgba(255,255,255,0.6); font-size:0.875rem; font-weight:600;">
+                <p style="color:var(--muted); font-size:0.875rem; font-weight:600;">
                     Apakah Anda yakin ingin keluar dari sistem?
                 </p>
             </div>
             <div class="px-6 pb-5 flex justify-end gap-3">
-                <button type="button" id="cancelLogout"
-                        class="btn-secondary" style="border-radius:8px;">
+                <button type="button" id="cancelLogout" class="btn-secondary" style="border-radius:8px;">
                     <i class="fas fa-xmark"></i> Batal
                 </button>
                 <form action="<?php echo e(route('logout')); ?>" method="POST">

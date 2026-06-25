@@ -1,35 +1,35 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 <div class="space-y-5">
     <div>
-        <h1 class="page-title"><i class="fas fa-pen-to-square mr-2" style="color:#21E6C1;"></i>Data Penilaian</h1>
+        <h1 class="page-title"><i class="fas fa-pen-to-square mr-2" style="color:#278EA5;"></i>Data Penilaian</h1>
         <p class="page-subtitle">Input penilaian untuk setiap alternatif</p>
     </div>
 
     @if($totalAlternatifs == 0)
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
-        <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Alternatif masih kosong. Silahkan tambahkan data alternatif terlebih dahulu.</p>
+        <p class="text-sm font-semibold" style="color:#374151;">Data Alternatif masih kosong. Silahkan tambahkan data alternatif terlebih dahulu.</p>
     </div>
     @else
     <div class="content-card overflow-hidden">
-        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <i class="fas fa-table" style="color:#21E6C1;"></i>
-            <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Daftar Data Penilaian</h2>
+        <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+            <i class="fas fa-table" style="color:#278EA5;"></i>
+            <h2 class="font-bold" style="color:#1E293B;">Daftar Data Penilaian</h2>
         </div>
         <div class="px-6 py-4 space-y-4">
             <div class="flex items-center justify-between gap-4">
                 <form action="{{ route('penilaian.index') }}" method="GET" class="flex items-center gap-2">
-                    <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Show</span>
+                    <span class="text-xs font-semibold" style="color:#64748B;">Show</span>
                     <select name="entries" onchange="this.form.submit()" class="form-input" style="width:70px; padding:6px 10px;">
                         @foreach([5, 10, 15, 20] as $value)
                         <option value="{{ $value }}" {{ request('entries', 5) == $value ? 'selected' : '' }}>{{ $value }}</option>
                         @endforeach
                     </select>
-                    <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">entries</span>
+                    <span class="text-xs font-semibold" style="color:#64748B;">entries</span>
                 </form>
                 <form action="{{ route('penilaian.index') }}" method="GET" class="flex items-center gap-2">
-                    <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">Search:</span>
+                    <span class="text-xs font-semibold" style="color:#64748B;">Search:</span>
                     <input type="text" name="search" value="{{ request('search') }}" class="form-input" style="width:200px;">
                     <button type="submit" class="btn-primary" style="padding:8px 12px;"><i class="fas fa-search"></i></button>
                 </form>
@@ -73,7 +73,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" style="color:rgba(255,255,255,0.35); font-style:italic; padding:24px;">
+                            <td colspan="4" style="color:#94A3B8; font-style:italic; padding:24px;">
                                 @if(request('search'))
                                 Tidak ada data yang cocok dengan "{{ request('search') }}"
                                 @else
@@ -87,7 +87,7 @@
             </div>
 
             <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold" style="color:rgba(255,255,255,0.4);">
+                <p class="text-xs font-semibold" style="color:#64748B;">
                     Showing {{ $alternatifs->firstItem() ?? 0 }} to {{ $alternatifs->lastItem() ?? 0 }} of {{ $alternatifs->total() }} entries
                 </p>
                 <div>{{ $alternatifs->appends(request()->query())->links('pagination.custom') }}</div>
@@ -97,13 +97,13 @@
     @endif
 </div>
 
-<div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:rgba(7,30,61,0.75); backdrop-filter:blur(6px);">
-    <div class="max-w-md w-full mx-4" style="background:rgba(7,30,61,0.95); border:1px solid rgba(33,230,193,0.2); border-radius:16px; overflow:hidden;">
-        <div class="px-6 py-5" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-            <h2 class="font-black text-lg" style="color:#fff;">Konfirmasi Penghapusan</h2>
+<div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:rgba(0,0,0,0.35); backdrop-filter:blur(4px);">
+    <div class="max-w-md w-full mx-4" style="background:#fff; border:1px solid #E2E8F0; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+        <div class="px-6 py-5" style="border-bottom:1px solid #E2E8F0;">
+            <h2 class="font-black text-lg" style="color:#071E3D;">Konfirmasi Penghapusan</h2>
         </div>
         <div class="px-6 py-5">
-            <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.6);">Apakah Anda yakin ingin menghapus penilaian untuk <span id="deleteItemName" class="font-black" style="color:#21E6C1;"></span>?</p>
+            <p class="text-sm font-semibold" style="color:#475569;">Apakah Anda yakin ingin menghapus penilaian untuk <span id="deleteItemName" class="font-black" style="color:#278EA5;"></span>?</p>
         </div>
         <div class="px-6 pb-5 flex justify-end gap-3">
             <button type="button" onclick="closeDeleteModal()" class="btn-secondary"><i class="fas fa-xmark"></i> Batal</button>

@@ -1,24 +1,24 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 <div class="space-y-5">
     <div>
-        <h1 class="page-title"><i class="fas fa-calculator mr-2" style="color:#21E6C1;"></i>Data Perhitungan</h1>
+        <h1 class="page-title"><i class="fas fa-calculator mr-2" style="color:#278EA5;"></i>Data Perhitungan</h1>
         <p class="page-subtitle">Langkah-langkah perhitungan metode COPRAS</p>
     </div>
 
     @if($kriterias->isEmpty() || $alternatifs->isEmpty())
     <div class="flex items-center gap-3 px-5 py-4 rounded-xl" style="background:rgba(251,207,109,0.1); border:1px solid rgba(251,207,109,0.25);">
         <i class="fas fa-exclamation-triangle" style="color:#fbbf24;"></i>
-        <p class="text-sm font-semibold" style="color:rgba(255,255,255,0.7);">Data Kriteria atau Alternatif masih kosong. Silahkan tambahkan data terlebih dahulu.</p>
+        <p class="text-sm font-semibold" style="color:#374151;">Data Kriteria atau Alternatif masih kosong. Silahkan tambahkan data terlebih dahulu.</p>
     </div>
     @else
     <div class="space-y-5">
 
         {{-- Matriks Keputusan --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Matriks Keputusan</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Matriks Keputusan</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -38,8 +38,8 @@
                         </tr>
                         @endforeach
                         <tr style="background:rgba(33,230,193,0.06);">
-                            <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            @foreach($kriterias as $k)<td class="font-bold" style="color:#21E6C1;">{{ $matriksKeputusan['total'][$k->id_kriteria] }}</td>@endforeach
+                            <td colspan="2" class="font-bold" style="color:#278EA5;">Total</td>
+                            @foreach($kriterias as $k)<td class="font-bold" style="color:#278EA5;">{{ $matriksKeputusan['total'][$k->id_kriteria] }}</td>@endforeach
                         </tr>
                     </tbody>
                 </table>
@@ -48,9 +48,9 @@
 
         {{-- Normalisasi Matriks --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Normalisasi Matriks</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Normalisasi Matriks</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -76,9 +76,9 @@
 
         {{-- Bobot Kriteria --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Bobot Kriteria</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Bobot Kriteria</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -98,9 +98,9 @@
 
         {{-- Matriks Ternormalisasi Terbobot --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Matriks Ternormalisasi Terbobot</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Matriks Ternormalisasi Terbobot</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -120,7 +120,7 @@
                         </tr>
                         @endforeach
                         <tr style="background:rgba(33,230,193,0.06);">
-                            <td colspan="2" class="font-bold" style="color:#21E6C1;">Jenis</td>
+                            <td colspan="2" class="font-bold" style="color:#278EA5;">Jenis</td>
                             @foreach($kriterias as $k)<td class="font-bold" style="color:{{ strtolower($k->jenis)=='benefit'?'#21E6C1':'#fca5a5' }};">{{ strtolower($k->jenis) == 'benefit' ? 'MAX' : 'MIN' }}</td>@endforeach
                         </tr>
                     </tbody>
@@ -130,9 +130,9 @@
 
         {{-- Nilai S+ --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Nilai S+ (MAX)</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Nilai S+ (MAX)</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -152,9 +152,9 @@
 
         {{-- Nilai S- --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Nilai S- (MIN)</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Nilai S- (MIN)</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -168,8 +168,8 @@
                         </tr>
                         @endforeach
                         <tr style="background:rgba(33,230,193,0.06);">
-                            <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $sMinusData['total'] }}</td>
+                            <td colspan="2" class="font-bold" style="color:#278EA5;">Total</td>
+                            <td class="font-bold" style="color:#278EA5;">{{ $sMinusData['total'] }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -178,9 +178,9 @@
 
         {{-- Bobot Relatif --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Bobot Relatif Tiap Kriteria</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Bobot Relatif Tiap Kriteria</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -195,8 +195,8 @@
                         </tr>
                         @endforeach
                         <tr style="background:rgba(33,230,193,0.06);">
-                            <td colspan="2" class="font-bold" style="color:#21E6C1;">Total</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $relativeWeightData['sumInverse'] }}</td>
+                            <td colspan="2" class="font-bold" style="color:#278EA5;">Total</td>
+                            <td class="font-bold" style="color:#278EA5;">{{ $relativeWeightData['sumInverse'] }}</td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -206,9 +206,9 @@
 
         {{-- Nilai Qi --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Nilai Signifikasi Prioritas Relatif (Qi)</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Nilai Signifikasi Prioritas Relatif (Qi)</h2>
             </div>
             <div class="px-6 py-4 space-y-4" style="overflow-x:auto;">
                 <table class="tbl text-center">
@@ -224,17 +224,17 @@
                     </tbody>
                 </table>
                 <div class="flex items-center gap-3 px-5 py-3 rounded-xl" style="background:rgba(33,230,193,0.08); border:1px solid rgba(33,230,193,0.2);">
-                    <i class="fas fa-info-circle" style="color:#21E6C1;"></i>
-                    <p class="text-sm font-bold" style="color:#21E6C1;">Nilai Max Qi = {{ $utilityDegreeData['maxQ'] }}</p>
+                    <i class="fas fa-info-circle" style="color:#278EA5;"></i>
+                    <p class="text-sm font-bold" style="color:#278EA5;">Nilai Max Qi = {{ $utilityDegreeData['maxQ'] }}</p>
                 </div>
             </div>
         </div>
 
         {{-- Nilai Ui --}}
         <div class="content-card overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid rgba(33,230,193,0.1);">
-                <i class="fas fa-table" style="color:#21E6C1;"></i>
-                <h2 class="font-bold" style="color:rgba(255,255,255,0.8);">Nilai Utilitas Kuantitatif (Ui)</h2>
+            <div class="px-6 py-4 flex items-center gap-2" style="border-bottom:1px solid #E2E8F0;">
+                <i class="fas fa-table" style="color:#278EA5;"></i>
+                <h2 class="font-bold" style="color:#1E293B;">Nilai Utilitas Kuantitatif (Ui)</h2>
             </div>
             <div class="px-6 py-4" style="overflow-x:auto;">
                 @php
@@ -253,7 +253,7 @@
                         <tr>
                             <td>{{ $i + 1 }}</td>
                             <td style="text-align:left;">{{ $row['nama_alternatif'] }}</td>
-                            <td class="font-bold" style="color:#21E6C1;">{{ $row['nilai_u'] }}%</td>
+                            <td class="font-bold" style="color:#278EA5;">{{ $row['nilai_u'] }}%</td>
                         </tr>
                         @endforeach
                     </tbody>
