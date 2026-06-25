@@ -32,7 +32,7 @@ class RegisterController extends Controller
             'username'     => $validatedData['username'],
             'email'        => $validatedData['email'],
             'password'     => Hash::make($validatedData['password']),
-            'role'         => 'user',
+            'role'         => 'admin',
             'status'       => 'Active',
         ]);
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar — SPK COPRAS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/montserrat.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/montserrat.css')); ?>">
     <link rel="stylesheet" href="/fontawesome/css/all.min.css">
     <style>
         * { font-family: 'Montserrat', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,28 +168,36 @@
         </div>
 
         <div class="register-body">
-            @if($errors->any())
+            <?php if($errors->any()): ?>
             <div class="alert-error">
                 <i class="fas fa-exclamation-circle"></i>
-                {{ $errors->first() }}
-            </div>
-            @endif
+                <?php echo e($errors->first()); ?>
 
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+            </div>
+            <?php endif; ?>
+
+            <form method="POST" action="<?php echo e(route('register')); ?>">
+                <?php echo csrf_field(); ?>
 
                 <div class="form-group">
                     <label class="form-label" for="nama_lengkap">Nama Lengkap</label>
                     <div class="input-wrapper">
                         <i class="fas fa-id-card input-icon"></i>
                         <input id="nama_lengkap" type="text" name="nama_lengkap"
-                               value="{{ old('nama_lengkap') }}"
-                               class="form-input {{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}"
+                               value="<?php echo e(old('nama_lengkap')); ?>"
+                               class="form-input <?php echo e($errors->has('nama_lengkap') ? 'is-invalid' : ''); ?>"
                                placeholder="Masukkan nama lengkap" autofocus required>
                     </div>
-                    @error('nama_lengkap')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['nama_lengkap'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -197,13 +205,20 @@
                     <div class="input-wrapper">
                         <i class="fas fa-user input-icon"></i>
                         <input id="username" type="text" name="username"
-                               value="{{ old('username') }}"
-                               class="form-input {{ $errors->has('username') ? 'is-invalid' : '' }}"
+                               value="<?php echo e(old('username')); ?>"
+                               class="form-input <?php echo e($errors->has('username') ? 'is-invalid' : ''); ?>"
                                placeholder="Masukkan username" required>
                     </div>
-                    @error('username')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['username'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -211,13 +226,20 @@
                     <div class="input-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
                         <input id="email" type="email" name="email"
-                               value="{{ old('email') }}"
-                               class="form-input {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                               value="<?php echo e(old('email')); ?>"
+                               class="form-input <?php echo e($errors->has('email') ? 'is-invalid' : ''); ?>"
                                placeholder="Masukkan email" required>
                     </div>
-                    @error('email')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -225,15 +247,22 @@
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
                         <input id="password" type="password" name="password"
-                               class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                               class="form-input <?php echo e($errors->has('password') ? 'is-invalid' : ''); ?>"
                                placeholder="Minimal 8 karakter" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
-                    @error('password')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -255,7 +284,7 @@
             </form>
 
             <div class="register-footer">
-                Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
+                Sudah punya akun? <a href="<?php echo e(route('login')); ?>">Masuk di sini</a>
             </div>
         </div>
     </div>
@@ -274,4 +303,4 @@
         }
     </script>
 </body>
-</html>
+</html><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/auth/register.blade.php ENDPATH**/ ?>

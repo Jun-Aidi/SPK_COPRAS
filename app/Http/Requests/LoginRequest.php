@@ -57,9 +57,8 @@ class LoginRequest extends FormRequest
             'login.regex' => 'Username hanya boleh mengandung huruf, angka, dan underscore',
             'login.not_regex' => 'Username tidak boleh hanya berupa angka',
 
-            // Email khusus Gmail (jika applicable)
+            // Email
             'login.email' => 'Format email tidak valid',
-            'login.ends_with' => 'Email harus menggunakan domain @gmail.com',
 
             // Password
             'password.required' => 'Password wajib diisi',
@@ -150,14 +149,10 @@ class LoginRequest extends FormRequest
 
         // Check if it's an email
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            // Validate Gmail format
-            if (!preg_match('/^[a-zA-Z0-9._%+-]+@gmail\.com$/', $login)) {
-                throw ValidationException::withMessages([
-                    'login' => 'Email harus menggunakan domain @gmail.com',
-                ]);
-            }
+            // Accept any valid email format (not just @gmail.com)
+            // No further restriction needed
         } else {
-            // Validate username format
+            // Validate username format: only letters, numbers, underscore
             if (!preg_match('/^[a-zA-Z0-9_]+$/', $login)) {
                 throw ValidationException::withMessages([
                     'login' => 'Username hanya boleh mengandung huruf, angka, dan underscore',

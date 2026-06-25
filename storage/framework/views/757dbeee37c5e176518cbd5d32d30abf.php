@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — SPK COPRAS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/montserrat.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/montserrat.css')); ?>">
     <link rel="stylesheet" href="/fontawesome/css/all.min.css">
     <style>
         * { font-family: 'Montserrat', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
@@ -225,35 +225,44 @@
             <h1 class="login-heading">Selamat Datang</h1>
             <p class="login-subheading">Masuk ke akun Anda untuk melanjutkan</p>
 
-            @if(session('success'))
+            <?php if(session('success')): ?>
             <div class="alert-success">
                 <i class="fas fa-circle-check"></i>
-                {{ session('success') }}
-            </div>
-            @endif
+                <?php echo e(session('success')); ?>
 
-            @if($errors->any())
+            </div>
+            <?php endif; ?>
+
+            <?php if($errors->any()): ?>
             <div class="alert-error">
                 <i class="fas fa-exclamation-circle"></i>
-                {{ $errors->first() }}
-            </div>
-            @endif
+                <?php echo e($errors->first()); ?>
 
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
+            </div>
+            <?php endif; ?>
+
+            <form method="POST" action="<?php echo e(route('login')); ?>">
+                <?php echo csrf_field(); ?>
 
                 <div class="form-group">
                     <label class="form-label" for="login">Email / Username</label>
                     <div class="input-wrapper">
                         <i class="fas fa-user input-icon"></i>
                         <input id="login" type="text" name="login"
-                               value="{{ old('login') }}"
-                               class="form-input {{ $errors->has('login') ? 'is-invalid' : '' }}"
+                               value="<?php echo e(old('login')); ?>"
+                               class="form-input <?php echo e($errors->has('login') ? 'is-invalid' : ''); ?>"
                                placeholder="Masukkan email atau username" autofocus required>
                     </div>
-                    @error('login')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['login'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -261,15 +270,22 @@
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
                         <input id="password" type="password" name="password"
-                               class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                               class="form-input <?php echo e($errors->has('password') ? 'is-invalid' : ''); ?>"
                                placeholder="Masukkan password" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
-                    @error('password')
-                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> {{ $message }}</p>
-                    @enderror
+                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="error-text"><i class="fas fa-circle-exclamation"></i> <?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <button type="submit" class="btn-login">
@@ -278,7 +294,7 @@
             </form>
 
             <div class="login-footer">
-                Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
+                Belum punya akun? <a href="<?php echo e(route('register')); ?>">Daftar sekarang</a>
             </div>
         </div>
     </div>
@@ -297,4 +313,4 @@
         }
     </script>
 </body>
-</html>
+</html><?php /**PATH C:\laragon\www\SPK_COPRAS\resources\views/auth/login.blade.php ENDPATH**/ ?>

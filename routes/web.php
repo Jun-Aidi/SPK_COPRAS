@@ -10,6 +10,7 @@ use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\HasilAkhirController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeederController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,9 @@ Route::middleware(['auth.user'])->group(function () {
         Route::get('/perhitungan', [PerhitunganController::class, 'index'])->name('perhitungan.index');
 
         Route::resource('user', UserController::class);
+
+        // Seeder route
+        Route::post('/seeder/run', [SeederController::class, 'run'])->name('seeder.run');
     });
 
     // Common authenticated routes
