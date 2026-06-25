@@ -89,9 +89,8 @@
         }
         .btn-secondary:hover { background: #EEF9F7; border-color: var(--teal); }
 
-        /* image panel */
         .image-panel {
-            background-image: url('{{ asset("images/auth_bg_forest.png") }}');
+            background-image: url('{{ asset("images/auth_bg.png") }}');
             background-size: cover;
             background-position: center;
         }
