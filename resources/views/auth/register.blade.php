@@ -20,7 +20,7 @@
         }
         * { font-family: 'Montserrat', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
 
-        body { min-height: 100vh; background: #F5F0E8; }
+        body { height: 100vh; overflow: hidden; }
 
         /* Reuse same form-input / form-label as layouts/app.blade.php */
         .form-input {
@@ -122,18 +122,18 @@
         .toggle-password:hover { color: var(--teal); }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
-        .fade-up { animation: fadeUp 0.35s ease both; }
+        .fade-up { animation: fadeUp 0.3s ease both; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
+<body class="flex h-screen overflow-hidden">
 
-    <div class="fade-up flex w-full max-w-[1020px] rounded-2xl overflow-hidden shadow-2xl bg-white">
+    <div class="fade-up flex w-full h-full bg-white">
 
         {{-- ── Left: Form Panel ── --}}
-        <div class="w-full md:w-[56%] flex flex-col justify-center px-10 py-10 bg-white">
+        <div class="w-full md:w-[55%] flex flex-col justify-center px-14 py-10 bg-white overflow-y-auto">
 
             {{-- Brand --}}
             <div class="flex items-center gap-3 mb-6">
@@ -288,7 +288,7 @@
         </div>
 
         {{-- ── Right: Image Panel ── --}}
-        <div class="hidden md:block relative flex-1 image-panel" style="min-height:600px;"></div>
+        <div class="hidden md:block relative flex-1 image-panel"></div>
 
     </div>
 
